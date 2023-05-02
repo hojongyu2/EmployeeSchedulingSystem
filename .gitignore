@@ -1,0 +1,14 @@
+# Exclude virtual environment directory (replace "myenv" with the name of your virtual environment)
+myenv/
+
+# Exclude Python compiled files and cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Exclude token and secrets files
+token.json
+client_secrets.json
+
+
