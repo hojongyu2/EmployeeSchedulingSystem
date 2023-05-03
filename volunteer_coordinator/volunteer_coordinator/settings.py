@@ -130,3 +130,8 @@ STATIC_URL = '/static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'volunteer_backend.CustomUser'
+
+CORS_ALLOWED_ORIGINS = [
+    'http://localhost:5174',
+]
+CORS_ALLOW_CREDENTIALS = True
