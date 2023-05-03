@@ -1,6 +1,7 @@
 import { Box, Button, Container, Link, TextField, useTheme } from "@mui/material"
 import { useState } from "react"
 import { Form } from "react-router-dom"
+import { userLogIn } from "../../utilities/userAuthAxios"
 
 export const LoginPage = () => {
     // MUI theme
@@ -23,8 +24,9 @@ export const LoginPage = () => {
             )
     }
 
-    const onSubmitForm = (e) => {
+    const onSubmitForm = async (e) => {
         e.preventDefault();
+        const data = await userLogIn(userEmailAndPassword)
     }
 
     return (

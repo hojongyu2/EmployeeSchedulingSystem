@@ -4,11 +4,11 @@ import { Form } from "react-router-dom"
 
 export const SignUpPage = () => {
     const theme = useTheme()
+
     const [userSignupInfo, setUserSignupInfo] = useState({
-        firstName: "",
-        lastName: "",
+        first_name: "",
+        last_name: "",
         email: "",
-        phoneNumber: "",
         password: "",
         passwordConfirm: "",
     })
@@ -29,11 +29,6 @@ export const SignUpPage = () => {
             ...prevState, email: e.target.value
         }))
     }
-    const onChangePhoneNumber = (e) => {
-        setUserSignupInfo((prevState) => ({
-            ...prevState, phoneNumber: e.target.value
-        }))
-    }
     const onChangePassword = (e) => {
         setUserSignupInfo((prevState) => ({
             ...prevState, password: e.target.value
@@ -45,8 +40,12 @@ export const SignUpPage = () => {
         }))
     }
 
-    const onSubmitForm = () => {
-
+    const onSubmitForm = async (e, userInformation) => {
+        e.preventDefault()
+        if (userInformation.password !== userInformation.passwordConfirm) {
+            alert('password not match')
+        }
+        const response = await userSignupInfo(userInformation)
     }
     
     return (
@@ -58,7 +57,7 @@ export const SignUpPage = () => {
             borderRadius: "10px",
         }}
         >
-            <Form onSubmit={onSubmitForm}>
+            <Form onSubmit={() => onSubmitForm(e, userInformation)}>
                 <Box sx={{
                     backgroundColor: theme.palette.primary.main, borderRadius: "10px",
                 }}
@@ -69,7 +68,6 @@ export const SignUpPage = () => {
                     </Box>
                     <Box display={"flex"} flexDirection={"column"} textAlign={"center"} justifyContent={"center"}>
                         <TextField label="Email Address" variant="outlined" sx={{ padding: "10px" }} onChange={onChangeEmail} type="email" required></TextField>
-                        <TextField label="Phone Number" variant="outlined" sx={{ padding: "10px" }} onChange={onChangePhoneNumber} required></TextField>
                         <TextField label="Password" variant="outlined" sx={{ padding: "10px" }} type="password" onChange={onChangePassword} required></TextField>
                         <TextField label="PasswordConfirm" variant="outlined" sx={{ padding: "10px" }} type="password" onChange={onChangePasswordConfirm} required></TextField>
                         <Box>

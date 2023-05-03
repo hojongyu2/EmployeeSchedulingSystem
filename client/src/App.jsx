@@ -3,6 +3,8 @@ import CustomThemeProvider from './CustomThemeProvider'
 import Layout from './components/layout/Layout'
 import { LoginPage } from './components/pages/LoginPage'
 import { SignUpPage } from './components/pages/SignUpPage'
+import { CreateFormPage } from './components/pages/CreateFormPage'
+
 
 function App() {
   const router = createBrowserRouter([
@@ -16,6 +18,10 @@ function App() {
         {
           path: '/signup',
           element: <SignUpPage />
+        },
+        {
+          path: '/event',
+          element: <CreateFormPage />
         },
       ]
     },

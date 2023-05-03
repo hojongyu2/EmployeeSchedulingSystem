@@ -2,7 +2,7 @@ import axios from 'axios';
 
 // Custom axios instance
 export const axiosWithCSRF = axios.create({
-  baseURL: process.env.REACT_APP_AXIOS, // get baseURL from .env file
+  baseURL: import.meta.env.VITE_REACT_APP_AXIOS, // get baseURL from .env file
   withCredentials: true,
 });
 

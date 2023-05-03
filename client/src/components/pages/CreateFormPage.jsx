@@ -1,8 +1,16 @@
-export default function CreateFormPage () {
-    
+import { Box, Container, Typography, useTheme } from "@mui/material"
+
+export const CreateFormPage = () => {
+    const theme = useTheme()
+
     return (
-        <>
-            this is a CreateFormPage
-        </>
+        <Container> 
+            <Box>
+                <Typography>Create Event</Typography>
+            </Box>
+            <Box>
+                
+            </Box>
+        </Container>
     )
 }
