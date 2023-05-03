@@ -14,6 +14,7 @@ def register(request):
         user = form.save()
         login(request, user)
         return Response({"detail": "User registered and logged in successfully."}, status=status.HTTP_201_CREATED)
+    print(request.data)
     return Response(form.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
