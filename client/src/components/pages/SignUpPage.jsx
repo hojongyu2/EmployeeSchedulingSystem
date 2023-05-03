@@ -16,12 +16,12 @@ export const SignUpPage = () => {
 
     const onChangeFirstName = (e) => {
         setUserSignupInfo((prevState) => ({
-            ...prevState, firstName: e.target.value
+            ...prevState, first_name: e.target.value
         }))
     }
     const onChangeLastName = (e) => {
         setUserSignupInfo((prevState) => ({
-            ...prevState, lastName: e.target.value
+            ...prevState, last_name: e.target.value
         }))
     }
     const onChangeEmail = (e) => {
@@ -46,6 +46,7 @@ export const SignUpPage = () => {
             alert('password not match')
         }
         const response = await userSignupInfo(userInformation)
+        console.log(response)
     }
     
     return (
