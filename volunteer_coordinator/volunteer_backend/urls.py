@@ -1,9 +1,8 @@
-from django.contrib import admin
 from django.urls import path
-from . import views
+from .views import register, login_view, logout_view
 
 urlpatterns = [
-    path('create_user/', views.create_user, name='create_user'),
-    path('login_user/', views.login_user, name='login_user'),
-    path('logout_user/', views.logout_user, name='logout_user'),
+    path('api/register/', register, name='api_register'),
+    path('api/login/', login_view, name='api_login'),
+    path('api/logout/', logout_view, name='api_logout'),
 ]
