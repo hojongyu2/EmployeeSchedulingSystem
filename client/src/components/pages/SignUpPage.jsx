@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom';
 import { userSignUp } from "../../utilities/userAuthAxios"
 import { Box, Button, Container, Link, TextField, Typography, useTheme } from "@mui/material"
 
-
 export const SignUpPage = () => {
     const theme = useTheme();
     const navigate = useNavigate();
@@ -16,7 +15,6 @@ export const SignUpPage = () => {
         password1: "",
         password2: "",
     })
-
 
     const onChangeFirstName = (e) => {
         setUserSignupInfo((prevState) => ({
@@ -49,7 +47,6 @@ export const SignUpPage = () => {
         try {
             const response = await userSignUp(userSignupInfo)
             if(response.detail === 'User registered and logged in successfully.'){
-                setUser()
                 navigate('/')
             }
         } catch (e) {
