@@ -10,8 +10,8 @@ export const SignUpPage = () => {
         first_name: "",
         last_name: "",
         email: "",
-        password: "",
-        passwordConfirm: "",
+        password1: "",
+        password2: "",
     })
     console.log(userSignupInfo)
 
@@ -32,12 +32,12 @@ export const SignUpPage = () => {
     }
     const onChangePassword = (e) => {
         setUserSignupInfo((prevState) => ({
-            ...prevState, password: e.target.value
+            ...prevState, password1: e.target.value
         }))
     }
     const onChangePasswordConfirm = (e) => {
         setUserSignupInfo((prevState) => ({
-            ...prevState, passwordConfirm: e.target.value
+            ...prevState, password2: e.target.value
         }))
     }
 
