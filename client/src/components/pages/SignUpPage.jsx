@@ -1,6 +1,7 @@
 import { Box, Button, Container, Link, TextField, Typography, useTheme } from "@mui/material"
 import { useState } from "react"
-import { Form } from "react-router-dom"
+import { userSignUp } from "../../utilities/userAuthAxios"
+
 
 export const SignUpPage = () => {
     const theme = useTheme()
@@ -40,12 +41,9 @@ export const SignUpPage = () => {
         }))
     }
 
-    const onSubmitForm = async (e, userInformation) => {
+    const onSubmitForm = async (e) => {
         e.preventDefault()
-        if (userInformation.password !== userInformation.passwordConfirm) {
-            alert('password not match')
-        }
-        const response = await userSignupInfo(userInformation)
+        const response = await userSignUp(userSignupInfo)
         console.log(response)
     }
     
@@ -58,7 +56,7 @@ export const SignUpPage = () => {
             borderRadius: "10px",
         }}
         >
-            <Form onSubmit={() => onSubmitForm(e, userInformation)}>
+            <form onSubmit={onSubmitForm}>
                 <Box sx={{
                     backgroundColor: theme.palette.primary.main, borderRadius: "10px",
                 }}
@@ -80,7 +78,7 @@ export const SignUpPage = () => {
                 <Link href="/">
                     <Button sx={{ paddingTop: "50px", color: 'black'}}>ALREADY HAVE AN ACCOUNT?</Button>
                 </Link>
-            </Form>
+            </form>
         </Container>
     )
 }
