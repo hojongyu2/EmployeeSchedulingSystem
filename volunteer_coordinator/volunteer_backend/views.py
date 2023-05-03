@@ -1,35 +1,35 @@
-from django.shortcuts import render
-from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
-from django.db import models
+# views.py
+from django.contrib.auth import login, logout, authenticate
+from rest_framework import status
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from .forms import CustomUserCreationForm
+from .models import CustomUser
+from .serializers import CustomUserSerializer
 
-class CustomUserManager(BaseUserManager):
-    def create_user(self, email, password=None, **extra_fields):
-        if not email:
-            raise ValueError('The Email field must be set')
-        email = self.normalize_email(email)
-        user = self.model(email=email, **extra_fields)
-        user.set_password(password)
-        user.save(using=self._db)
-        return user
 
-    def create_superuser(self, email, password=None, **extra_fields):
-        extra_fields.setdefault('is_staff', True)
-        extra_fields.setdefault('is_superuser', True)
+@api_view(['POST'])
+def register(request):
+    form = CustomUserCreationForm(request.data)
+    if form.is_valid():
+        user = form.save()
+        login(request, user)
+        return Response({"detail": "User registered and logged in successfully."}, status=status.HTTP_201_CREATED)
+    return Response(form.errors, status=status.HTTP_400_BAD_REQUEST)
 
-        return self.create_user(email, password, **extra_fields)
 
-class CustomUser(AbstractBaseUser):
-    email = models.EmailField(unique=True)
-    first_name = models.CharField(max_length=30)
-    last_name = models.CharField(max_length=30)
-    is_active = models.BooleanField(default=True)
-    is_staff = models.BooleanField(default=False)
-    is_superuser = models.BooleanField(default=False)
+@api_view(['POST'])
+def login_view(request):
+    email = request.data.get('email')
+    password = request.data.get('password')
+    user = authenticate(request, username=email, password=password)
+    if user is not None:
+        login(request, user)
+        return Response({"detail": "User logged in successfully."}, status=status.HTTP_200_OK)
+    return Response({"detail": "Invalid email or password."}, status=status.HTTP_400_BAD_REQUEST)
 
-    objects = CustomUserManager()
 
-    USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['first_name', 'last_name']
-
-    def __str__(self):
-        return self.email
+@api_view(['POST'])
+def logout_view(request):
+    logout(request)
+    return Response({"detail": "User logged out successfully."}, status=status.HTTP_200_OK)
