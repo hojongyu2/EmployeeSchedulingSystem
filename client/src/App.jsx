@@ -6,6 +6,7 @@ import { SignUpPage } from './components/pages/SignUpPage'
 import { CreateFormPage } from './components/pages/CreateFormPage'
 
 
+
 function App() {
   const router = createBrowserRouter([
     {
@@ -28,7 +29,7 @@ function App() {
   ])
   return (
     <CustomThemeProvider>
-        <RouterProvider router={router}/>
+          <RouterProvider router={router}/>
     </CustomThemeProvider>
   )
 }

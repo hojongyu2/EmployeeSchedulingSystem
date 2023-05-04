@@ -11,7 +11,7 @@ export const LoginPage = () => {
         email: "",
         password: "",
     })
-    console.log(userEmailAndPassword)
+
     const onChangeEmail = (e) => {
         setUserEmailAndPassword(
             (prevState) => ({...prevState, email:e.target.value})

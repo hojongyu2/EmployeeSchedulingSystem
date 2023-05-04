@@ -1,13 +1,9 @@
 import { axiosWithCSRF } from "./axiosWithCSRF";
 
 export const userSignUp = async (userInfo) => {
-    try {
-        const response = await axiosWithCSRF.post('api/register/', userInfo)
-        console.log(response)
-        return response.data
-    } catch (e) {
-        console.log('Error while fetching signing up a user :' + e)
-    }
+    const response = await axiosWithCSRF.post('api/register/', userInfo)
+    console.log(response)
+    return response.data
 }
 
 export const userLogIn = async (userInfo) => {
