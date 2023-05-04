@@ -1,12 +1,19 @@
-import { useState } from "react"
+import { useState, useContext } from "react"
 import { useNavigate } from 'react-router-dom';
 import { userSignUp } from "../../utilities/userAuthAxios"
+import { userContext } from "../context/UserContext";
+
+//MUI
 import { Box, Button, Container, Link, TextField, Typography, useTheme } from "@mui/material"
+
 
 export const SignUpPage = () => {
     const theme = useTheme();
     const navigate = useNavigate();
     const [errorMessage, setErrorMessage]= useState('');
+
+    // Use the useContext hook to access and manage user-related state variables from the userContext.
+    const {user ,setUser} = useContext(userContext)
 
     const [userSignupInfo, setUserSignupInfo] = useState({
         first_name: "",
@@ -47,6 +54,12 @@ export const SignUpPage = () => {
         try {
             const response = await userSignUp(userSignupInfo)
             if(response.detail === 'User registered and logged in successfully.'){
+
+                setUser(response.current_user)
+                // Assumming that response.current_user will have userdata and token together, then save it in the localStorage as 'currentUser'
+                // JSON.stringify is neccessary since Local storage can only store key-value pairs in which the keys and values are strings.
+                localStorage.setItem('currentUser', JSON.stringify(response.current_user));
+                
                 navigate('/')
             }
         } catch (e) {
@@ -83,7 +96,7 @@ export const SignUpPage = () => {
                     </Box>
                 </Box>
                 <Typography variant="subtitle2"></Typography>
-                <Link href="/">
+                <Link href="/signup">
                     <Button sx={{ paddingTop: "50px", color: 'black'}}>ALREADY HAVE AN ACCOUNT?</Button>
                 </Link>
             </form>

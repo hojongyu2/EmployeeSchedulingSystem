@@ -17,13 +17,9 @@ export const userLogIn = async (userInfo) => {
 }
 
 export const userSignOut = async () => {
-    try {
-        const response = await axiosWithCSRF.post('api/logout/')
-        console.log(response)
-        return response.data
-    }catch (e) {
-        console.log('Error while fetching user logout :' + e)
-    }
+    const response = await axiosWithCSRF.post('api/logout/')
+    console.log(response)
+    return response.data
 }
 
 export const getUser = async () => {
