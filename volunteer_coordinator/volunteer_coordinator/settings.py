@@ -136,9 +136,9 @@ CORS_ALLOWED_ORIGINS = [
 ]
 CORS_ALLOW_CREDENTIALS = True
 
-CSRF_COOKIE_HTTPONLY = False
+# CSRF_COOKIE_HTTPONLY = False
 
-SESSION_ENGINE = 'django.contrib.sessions.backends.signed_cookies'
-SESSION_COOKIE_AGE = 1209600
+# SESSION_ENGINE = 'django.contrib.sessions.backends.signed_cookies'
+# SESSION_COOKIE_AGE = 1209600
 
-CSRF_COOKIE_SECURE = False
+# CSRF_COOKIE_SECURE = False
