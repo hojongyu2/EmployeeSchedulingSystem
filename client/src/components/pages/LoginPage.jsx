@@ -1,12 +1,12 @@
 import { Box, Button, Container, Link, TextField, useTheme } from "@mui/material"
 import { useState } from "react"
-import { Form } from "react-router-dom"
+import { Form, useNavigate } from "react-router-dom"
 import { userLogIn } from "../../utilities/userAuthAxios"
 
 export const LoginPage = () => {
     // MUI theme
     const theme = useTheme()
-    
+    const navigate = useNavigate()
     const [userEmailAndPassword, setUserEmailAndPassword] = useState({
         email: "",
         password: "",
@@ -50,9 +50,11 @@ export const LoginPage = () => {
                     <Box display={"flex"} direction={"row"} textAlign={"center"} justifyContent={"center"} p={4}>
                         <Button type="submit" variant="contained">Log In</Button>
                         <Button disabled>Or</Button>
-                        <Link href="/signup" sx={{textDecoration:'none'}}>
-                            <Button variant="contained">Create Account</Button>
-                        </Link>
+                        {/* <Link href="/signup" sx={{textDecoration:'none'}}> */}
+                            <Button onClick={()=>{
+                        navigate('/signup')
+                    }} variant="contained">Create Account</Button>
+                        {/* </Link> */}
                     </Box>
                 </Box>
             </Form>

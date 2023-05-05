@@ -96,9 +96,9 @@ export const SignUpPage = () => {
                     </Box>
                 </Box>
                 <Typography variant="subtitle2"></Typography>
-                <Link href="/signup">
-                    <Button sx={{ paddingTop: "50px", color: 'black'}}>ALREADY HAVE AN ACCOUNT?</Button>
-                </Link>
+                    <Button onClick={()=>{
+                        navigate('/signin')
+                    }} sx={{ paddingTop: "50px", color: 'black'}}>ALREADY HAVE AN ACCOUNT?</Button>
             </form>
         </Container>
     )

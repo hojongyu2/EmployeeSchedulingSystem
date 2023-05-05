@@ -1,4 +1,4 @@
-import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import { createBrowserRouter, createHashRouter, RouterProvider } from 'react-router-dom'
 import CustomThemeProvider from './CustomThemeProvider'
 import Layout from './components/layout/Layout'
 import { LoginPage } from './components/pages/LoginPage'
@@ -9,7 +9,7 @@ import UserContextProvider from './components/context/UserContext'
 
 
 function App() {
-  const router = createBrowserRouter([
+  const router = createHashRouter([
     {
       element: <Layout />,
       children: [
