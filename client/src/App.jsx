@@ -5,6 +5,7 @@ import { LoginPage } from './components/pages/LoginPage'
 import { SignUpPage } from './components/pages/SignUpPage'
 import { CreateFormAndHomePage } from './components/pages/CreateFormAndHomePage'
 import UserContextProvider from './components/context/UserContext'
+import { EventFormPage } from './components/pages/EventFormPage'
 
 
 
@@ -24,6 +25,10 @@ function App() {
         {
           path: '/login',
           element: <LoginPage />
+        },
+        {
+          path: '/form',
+          element: <EventFormPage />
         },
       ]
     },

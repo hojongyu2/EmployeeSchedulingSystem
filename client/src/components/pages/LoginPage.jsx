@@ -40,7 +40,7 @@ export const LoginPage = () => {
         >
             <Form onSubmit={onSubmitForm}>
                 <Box sx={{
-                    backgroundColor: theme.palette.primary.main, borderRadius: "10px",
+                    backgroundColor:'white', borderRadius: "10px",
                 }}
                 >
                     <Box display={"flex"} flexDirection={"column"} spacing={2} justifyContent={"center"}>

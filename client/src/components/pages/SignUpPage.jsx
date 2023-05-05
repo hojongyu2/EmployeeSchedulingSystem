@@ -1,5 +1,5 @@
 import { useState, useContext } from "react"
-import { useNavigate } from 'react-router-dom';
+import { Form, useNavigate } from 'react-router-dom';
 import { userSignUp } from "../../utilities/userAuthAxios"
 import { userContext } from "../context/UserContext";
 
@@ -76,9 +76,9 @@ export const SignUpPage = () => {
             borderRadius: "10px",
         }}
         >  
-            <form onSubmit={onSubmitForm}>
+            <Form onSubmit={onSubmitForm}>
                 <Box sx={{
-                    backgroundColor: theme.palette.primary.main, borderRadius: "10px",
+                    backgroundColor: 'white', borderRadius: "10px",
                 }}
                 >
                     <Typography sx={{color:'red', textAlign:'center'}}>{errorMessage}</Typography>
@@ -99,7 +99,7 @@ export const SignUpPage = () => {
                     <Button onClick={()=>{
                         navigate('/signin')
                     }} sx={{ paddingTop: "50px", color: 'black'}}>ALREADY HAVE AN ACCOUNT?</Button>
-            </form>
+            </Form>
         </Container>
     )
 }
