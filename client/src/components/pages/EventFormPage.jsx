@@ -59,6 +59,12 @@ export const EventFormPage = () => {
     // console.log(selectedTimes)
 
     const onSubmitForm = async (e) => {
+        // console.log(email)
+        // console.log(year)
+        // console.log(opportunity)
+        // console.log(duration)
+        // console.log(futureOpportunity)
+        // console.log(selectedTimes)
         e.preventDefault()
     }
     
