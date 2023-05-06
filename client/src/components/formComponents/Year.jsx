@@ -1,56 +1,54 @@
-import * as React from 'react';
-import { useState } from 'react';
-import Radio from '@mui/material/Radio';
-import RadioGroup from '@mui/material/RadioGroup';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import FormControl from '@mui/material/FormControl';
-import FormLabel from '@mui/material/FormLabel';
-import { Box, TextField, Typography } from '@mui/material';
+import React, { useState } from 'react';
+import { Container, FormControl, InputLabel, MenuItem, Select, TextField, Typography } from '@mui/material';
 
-export default function Year() {
-  const [selectedOption, setSelectedOption] = useState('M4');
-  const [otherValue, setOtherValue] = useState('');
+export const Year = ({year, setYear}) => {
 
-  const handleOptionChange = (event) => {
-    setSelectedOption(event.target.value);
-  };
+    const [showOtherInput, setShowOtherInput] = useState(false);
 
-  return (
-    <FormControl sx={{ p: '10px', backgroundColor: 'white', borderRadius: "10px" }}>
-      <Box display={'flex'} flexDirection={'row'}>
-        <FormLabel
-          id="demo-radio-buttons-group-label"
-          sx={{
-            '&.Mui-focused': {
-              color: 'inherit', // This will set default color and prevent from blinking when other radio button is clicked.
-            },
-          }}
-        >
-          Year
-        </FormLabel>
-        <Typography sx={{ color: 'red' }}>*</Typography>
-      </Box>
-      <RadioGroup
-        value={selectedOption}
-        onChange={handleOptionChange}
-        name="radio-buttons-group"
-      >
-        <FormControlLabel value="M1" control={<Radio />} label="M1" />
-        <FormControlLabel value="M2" control={<Radio />} label="M2" />
-        <FormControlLabel value="M3" control={<Radio />} label="M3" />
-        <FormControlLabel value="M4" control={<Radio />} label="M4" />
-        <FormControlLabel value="Other" control={<Radio />} label="Other:" />
-      </RadioGroup>
-      {selectedOption === 'Other' && (
-        <TextField
-          label="Specify other year"
-          value={otherValue}
-          onChange={(e) => setOtherValue(e.target.value)}
-          variant="outlined"
-          size="small"
-          sx={{ mt: 1 }}
-        />
-      )}
-    </FormControl>
-  );
+    const handleChange = (event) => {
+        const value = event.target.value;
+        setYear(value);
+        setShowOtherInput(value === 'other');
+    };
+
+    const handleOtherInputChange = (event) => {
+        setYear(event.target.value);
+    };
+
+    return (
+        <Container sx={{ backgroundColor: 'white', borderRadius: "10px" }}>
+            <InputLabel component="legend" sx={{ '&.Mui-focused': { color: 'black' }, display: 'flex', flexDirection: 'row' }}>
+                <Typography sx={{ color:"black" }}>Year</Typography>
+                <Typography sx={{ color: 'red' }}>*</Typography>
+            </InputLabel>
+            <FormControl fullWidth variant="outlined" sx={{ mt: '10px', mb: '10px' }} required>
+                <InputLabel htmlFor="duration">Select year</InputLabel>
+                <Select
+                    value={year}
+                    onChange={handleChange}
+                    label="Year"
+                    inputProps={{
+                        name: 'year',
+                        id: 'year',
+                    }}
+                >
+                    <MenuItem value="m1">M1</MenuItem>
+                    <MenuItem value="m2">M2</MenuItem>
+                    <MenuItem value="m3">M3</MenuItem>
+                    <MenuItem value="m4">M4</MenuItem>
+                    <MenuItem value="other">Other</MenuItem>
+                </Select>
+            </FormControl>
+            {showOtherInput && (
+                <TextField
+                    label="Specify other year"
+                    value={year !== 'other' ? year : ''}
+                    onChange={handleOtherInputChange}
+                    variant="outlined"
+                    size="small"
+                    fullWidth
+                />
+            )}
+        </Container>
+    );
 }

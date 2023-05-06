@@ -9,7 +9,7 @@ export default function Layout() {
             <Box>
                 <Header />
             </Box>
-            <div style={{padding:'100px'}}>
+            <div style={{padding:'50px'}}>
                 <Outlet />
             </div>
         </Container>

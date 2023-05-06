@@ -1,6 +1,11 @@
 import { Box, TextField, Typography } from "@mui/material"
 
-export const Email = () => {
+export const Email = ({email, setEmail}) => {
+
+    const onChangeEmail = (e) => {
+        setEmail(e.target.value)
+    }
+
     return (
         <Box sx={{ backgroundColor: 'white', borderRadius: "10px" }}>
             <Box display={"flex"} flexDirection={"column"} justifyContent={"center"}>
@@ -8,7 +13,7 @@ export const Email = () => {
                     <Typography>Email</Typography>
                     <Typography sx={{ color: 'red' }}>*</Typography>
                 </Box>
-                <TextField label="Email" variant="outlined" sx={{ padding: "10px" }} required></TextField>
+                <TextField value={email} onChange={onChangeEmail} type="email" label="Your Email" variant="outlined" sx={{ padding: "10px" }} required></TextField>
             </Box>
         </Box>
 

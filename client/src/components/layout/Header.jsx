@@ -11,7 +11,7 @@ import MoreIcon from '@mui/icons-material/MoreVert';
 
 import { userSignOut } from '../../utilities/userAuthAxios';
 import { useNavigate } from 'react-router';
-import { Link, colors } from '@mui/material';
+import { Button, Link } from '@mui/material';
 
 
 export default function Header() {
@@ -98,6 +98,15 @@ export default function Header() {
       onClose={handleMobileMenuClose}
     >
       <MenuItem onClick={handleProfileMenuOpen}>
+        <Button sx={{color:'black'}}>Form</Button>
+      </MenuItem>
+      <MenuItem>
+        <Button sx={{color:'black'}}>Crurrent Event List</Button>
+      </MenuItem>
+      <MenuItem>
+        <Button sx={{color:'black'}}>Students List</Button>
+      </MenuItem>
+      <MenuItem onClick={handleProfileMenuOpen}>
         <IconButton
           size="large"
           aria-label="account of current user"
@@ -121,11 +130,20 @@ export default function Header() {
               variant="h6"
               noWrap
               component="div"
-              sx={{ display: { xs: 'none', sm: 'block' }, color:'black' }}
+              sx={{ display: { sm: 'block' }, color:'black' }}
             >
               MUI
             </Typography>
           </Link>
+          <Box sx={{ display: { xs: 'none', sm: 'block' }}}>
+            <Link href='/#/form'>
+              <Button sx={{color:'black'}}>Form</Button>
+            </Link>
+            <Link href='/#/formLists'>
+              <Button sx={{color:'black'}}>Crurrent Event List</Button>
+            </Link>
+            <Button sx={{color:'black'}}>Students List</Button>
+          </Box>
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
             <IconButton
