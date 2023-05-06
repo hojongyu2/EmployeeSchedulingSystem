@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class VolunteerBackendConfig(AppConfig):
+class AuthenticationConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'volunteer_backend'
+    name = 'authentication'

@@ -1,5 +1,5 @@
 from django.contrib.auth.forms import UserCreationForm
-from volunteer_backend.models import CustomUser
+from authentication.models import CustomUser
 
 class CustomUserCreationForm(UserCreationForm):
     class Meta:
