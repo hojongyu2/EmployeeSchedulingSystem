@@ -1,24 +1,5 @@
 import axios from 'axios';
 
-// // Custom axios instance
-// export const axiosWithCSRF = axios.create({
-//   baseURL: import.meta.env.VITE_REACT_APP_AXIOS, // get baseURL from .env file
-//   withCredentials: true,
-// });
-
-// // Add the CSRF token to every request using getCSRFToken
-// axiosWithCSRF.interceptors.request.use(
-//   (config) => {
-//     const token = getCSRFToken();
-//     if (token) {
-//       config.headers['X-CSRFToken'] = token;
-//     }
-//     return config;
-//   },
-//   (error) => {
-//     return Promise.reject(error);
-//   }
-// );
 function createAxiosInstance() {
   const accessToken = localStorage.getItem("access_token");
 
