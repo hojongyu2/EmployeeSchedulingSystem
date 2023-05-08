@@ -20,9 +20,9 @@ export const EventFormPage = () => {
         setChecked(event.target.checked);
     };
 
-    const [email, setEmail] = useState(null)
-    const [year, setYear] = useState(null);
-    const [duration, setDuration] = useState(null);
+    const [email, setEmail] = useState('')
+    const [year, setYear] = useState('');
+    const [duration, setDuration] = useState('');
     const [opportunity, setOpportunity] = useState({
         massCasualtyDrill: false,
         sinai30th: false,
@@ -50,13 +50,6 @@ export const EventFormPage = () => {
         Saturday : null,
         Sunday : null,
       });
-
-    // console.log(email)
-    // console.log(year)
-    // console.log(opportunity)
-    // console.log(duration)
-    // console.log(futureOpportunity)
-    // console.log(selectedTimes)
 
     const onSubmitForm = async (e) => {
         // console.log(email)

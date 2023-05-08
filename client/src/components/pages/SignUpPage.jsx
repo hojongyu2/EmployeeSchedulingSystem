@@ -51,20 +51,13 @@ export const SignUpPage = () => {
 
     const onSubmitForm = async (e) => {
         e.preventDefault()
-        // try {
             const response = await userSignUp(userSignupInfo)
             if(response.detail === 'User registered and logged in successfully.'){
-
                 setUser(response.current_user)
-                // Assumming that response.current_user will have userdata and token together, then save it in the localStorage as 'currentUser'
-                // JSON.stringify is neccessary since Local storage can only store key-value pairs in which the keys and values are strings.
-                // localStorage.setItem('currentUser', JSON.stringify(response.current_user));
-                
                 navigate('/')
+            } else {
+                setErrorMessage(response)
             }
-        // } catch (e) {
-        //     setErrorMessage('"ERROR! Sorry the credentials you are using are invalid" ')
-        // }
     }
     
     return (

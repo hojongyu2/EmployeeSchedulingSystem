@@ -1,4 +1,10 @@
 import * as React from 'react';
+import { userSignOut } from '../../utilities/userAuthAxios';
+import { useNavigate } from 'react-router';
+import { Button, Link } from '@mui/material';
+import { useContext } from 'react';
+import { userContext } from '../context/UserContext';
+//MUI
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -9,12 +15,12 @@ import Menu from '@mui/material/Menu';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import MoreIcon from '@mui/icons-material/MoreVert';
 
-import { userSignOut } from '../../utilities/userAuthAxios';
-import { useNavigate } from 'react-router';
-import { Button, Link } from '@mui/material';
 
 
 export default function Header() {
+  const {user, setUser} = useContext(userContext)
+  
+
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
   const navigate = useNavigate()
@@ -43,14 +49,14 @@ export default function Header() {
   const handleMenuCloseAndLogout = async () => {
     setAnchorEl(null);
     handleMobileMenuClose();
-    try {
-      const response = await userSignOut()
-      console.log(response)
+    const response = await userSignOut()
+    if (response.detail === 'Logged out successfully') {
       // remove a key named currentUser when logout function is properly activated
-      localStorage.removeItem('currentUser');
-    }catch (e) {
-      console.log('Error while fetching user logout :' + e)
+      localStorage.clear();
+      setUser('')
+      navigate('/')
     }
+
   };
 
   const handleMobileMenuOpen = (event) => {
@@ -74,9 +80,9 @@ export default function Header() {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-      <MenuItem onClick={handleMenuCloseAndLogIn}>Log In</MenuItem>
-      <MenuItem onClick={handleMenuCloseAndLogout}>Logout</MenuItem>
+      {!user && <MenuItem onClick={handleMenuCloseAndLogIn}>Log In</MenuItem>}
+      {user && <MenuItem onClick={handleMenuClose}>Profile</MenuItem>}
+      {user && <MenuItem onClick={handleMenuCloseAndLogout}>Logout</MenuItem>}
     </Menu>
   );
 
@@ -97,7 +103,7 @@ export default function Header() {
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
-      <MenuItem onClick={handleProfileMenuOpen}>
+      <MenuItem>
         <Button sx={{color:'black'}}>Form</Button>
       </MenuItem>
       <MenuItem>
@@ -145,6 +151,7 @@ export default function Header() {
             <Button sx={{color:'black'}}>Students List</Button>
           </Box>
           <Box sx={{ flexGrow: 1 }} />
+          <Typography sx={{color:'black'}}>{user && user.first_name}</Typography>
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
             <IconButton
               size="large"

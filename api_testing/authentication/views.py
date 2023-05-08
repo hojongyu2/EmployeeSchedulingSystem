@@ -31,20 +31,21 @@ def register(request):
 
 @api_view(['POST'])
 def login_view(request):
-    print('hello')
     email = request.data.get('email')
     password = request.data.get('password')
     user = authenticate(email=email, password=password)
     if user is not None:
         refresh = RefreshToken.for_user(user)
+        user_serializer = UserSerializer(user)
         return Response({
             'detail': 'Logged in successfully',
             'refresh': str(refresh),
             'access': str(refresh.access_token),
+            'current_user': user_serializer.data,
         })
     else:
         return Response({
-            'detail': 'Invalid credentials',
+            'detail': 'Invalid credentials. Please check your email and password.',
         }, status=status.HTTP_401_UNAUTHORIZED)
 
 @api_view(['POST'])
