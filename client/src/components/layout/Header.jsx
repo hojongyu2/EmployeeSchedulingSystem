@@ -104,10 +104,10 @@ export default function Header() {
       onClose={handleMobileMenuClose}
     >
       <MenuItem>
-        <Button sx={{color:'black'}}>Form</Button>
+        <Button sx={{color:'black'}}>create event</Button>
       </MenuItem>
       <MenuItem>
-        <Button sx={{color:'black'}}>Crurrent Event List</Button>
+        <Button sx={{color:'black'}}>Send Request</Button>
       </MenuItem>
       <MenuItem>
         <Button sx={{color:'black'}}>Students List</Button>
@@ -142,11 +142,11 @@ export default function Header() {
             </Typography>
           </Link>
           <Box sx={{ display: { xs: 'none', sm: 'block' }}}>
-            <Link href='/#/form'>
-              <Button sx={{color:'black'}}>Form</Button>
+            <Link href='/#/create-event'>
+              <Button sx={{color:'black'}}>create event</Button>
             </Link>
-            <Link href='/#/formLists'>
-              <Button sx={{color:'black'}}>Crurrent Event List</Button>
+            <Link href='/#/temp'>
+              <Button sx={{color:'black'}}>Send Request</Button>
             </Link>
             <Button sx={{color:'black'}}>Students List</Button>
           </Box>

@@ -1,7 +1,7 @@
 import { Box, Button, Container, FormControl, InputLabel, MenuItem, Select, Typography } from "@mui/material"
 import { useState } from "react"
 
-export const EventFormListPage = () => {
+export const EventFormList = () => {
     const [state, setState] = useState(false)
     const [state1, setState1] = useState(false)
     const onClickOpen1 = (e) => {

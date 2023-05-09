@@ -3,7 +3,7 @@ import { Form, useNavigate } from 'react-router-dom';
 import { Year }from "../formComponents/Year";
 import { Email } from "../formComponents/Email";
 import { FutureVolunteerings } from "../formComponents/FutureVolunteerings";
-import { CurrentVolunteerings } from "../formComponents/CurrentVolunteerings";
+import { EventTitleWithDateTime } from "../formComponents/EventTitleWithDateTime";
 import { ChicagoOrSinai } from "../formComponents/ChicagoOrSinai";
 import { TimeAvailability } from "../formComponents/TimeAvailability";
 
@@ -11,7 +11,7 @@ import { TimeAvailability } from "../formComponents/TimeAvailability";
 import { Box, Button, Container, Switch, Typography, useTheme } from "@mui/material"
 
 
-export const EventFormPage = () => {
+export const TempFormPage = () => {
     const theme = useTheme();
     const navigate = useNavigate();
 
@@ -23,13 +23,7 @@ export const EventFormPage = () => {
     const [email, setEmail] = useState('')
     const [year, setYear] = useState('');
     const [duration, setDuration] = useState('');
-    const [opportunity, setOpportunity] = useState({
-        massCasualtyDrill: false,
-        sinai30th: false,
-        sinaiWellnessFair: false,
-        other: false,
-        otherValue: null
-    });
+
     const [futureOpportunity, setFutureOpportunity] = useState({
         bloodDrives: false,
         clinic: false,
@@ -39,8 +33,9 @@ export const EventFormPage = () => {
         patientRelated: false,
         weekendEvents: false,
         other: false,
-        otherValue: null,
+        otherValue: '',
     });
+
     const [selectedTimes, setSelectedTimes] = useState({
         Monday : null,
         Tuesday : null,
@@ -72,11 +67,9 @@ export const EventFormPage = () => {
         >  
             <Form onSubmit={onSubmitForm}>
                 <Container sx={{display:'flex', flexDirection:'column', gap:2}}>
-                    /* maybe show user before email form*/
                     <Email email={email} setEmail={setEmail} />
                     <Year year={year} setYear={setYear} />
                     <ChicagoOrSinai duration={duration} setDuration={setDuration} />
-                    <CurrentVolunteerings opportunity={opportunity} setOpportunity={setOpportunity} />
                     <FutureVolunteerings futureOpportunity={futureOpportunity} setFutureOpportunity={setFutureOpportunity} />
                     <TimeAvailability selectedTimes={selectedTimes} setSelectedTimes={setSelectedTimes} />
                     <Box sx={{display:'flex', flexDirection:'row', alignItems:'center', gap:2 }}>

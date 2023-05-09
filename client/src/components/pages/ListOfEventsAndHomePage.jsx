@@ -2,8 +2,10 @@ import { useContext } from "react"
 import GreetingCard from "../card/GreetingCard"
 import { Box, Container, Typography, useTheme } from "@mui/material"
 import { userContext } from "../context/UserContext"
+import { EventFormList } from "../formComponents/EventFormList"
 
-export const CreateFormAndHomePage = () => {
+
+export const ListOfEventsAndHomePage = () => {
     const theme = useTheme()
 
     // Use the useContext hook to access and manage user-related state variables from the userContext.
@@ -14,7 +16,8 @@ export const CreateFormAndHomePage = () => {
         <Container>
             {user &&
                 <Box>
-                    <Typography>This will be replaced by create event0-form once user is signed In</Typography>
+                    <Typography sx={{color:'black'}}>Event List</Typography>
+                    <EventFormList />
                 </Box>
             }
             {!user &&

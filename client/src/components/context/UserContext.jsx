@@ -5,7 +5,7 @@ export const userContext = createContext();
 export default function UserContextProvider({children}){
 
     const [user, setUser] = useState(null);
-    console.log(user)
+    // console.log(user)
 
     const savedUserData = JSON.parse(localStorage.getItem('currentUser'))
 
