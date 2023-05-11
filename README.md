@@ -1,2 +1,2 @@
 # EmployeeSchedulingSystem
-Blah blah sample test file
+Currently developing MediVol, a custom Volunteer Event Management System for Mount Sinai Hospital, designed to revolutionize medical student volunteer coordination. This innovative solution replaces traditional Google Forms, significantly enhancing data organization and automating scheduling processes. It also features an intuitive administrator dashboard for data-driven decision-making.
