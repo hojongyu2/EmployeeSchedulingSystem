@@ -5,8 +5,9 @@ import { LoginPage } from './components/pages/LoginPage'
 import { SignUpPage } from './components/pages/SignUpPage'
 import { ListOfEventsAndHomePage } from './components/pages/ListOfEventsAndHomePage'
 import UserContextProvider from './components/context/UserContext'
-import { TempFormPage } from './components/pages/TempFormPage'
+
 import { CreateEventPage } from './components/pages/CreateEventPage'
+import { RequestPage } from './components/pages/requestPage'
 
 
 function App() {
@@ -31,8 +32,8 @@ function App() {
           element: <CreateEventPage />
         },
         {
-          path: '/temp',
-          element: <TempFormPage />
+          path: '/request',
+          element: <RequestPage />
         },
       ]
     },

@@ -1,17 +1,16 @@
 import { useState, useContext } from "react"
 import { Form, useNavigate } from 'react-router-dom';
-import { Year }from "../formComponents/Year";
-import { Email } from "../formComponents/Email";
-import { FutureVolunteerings } from "../formComponents/FutureVolunteerings";
-import { EventTitleWithDateTime } from "../formComponents/EventTitleWithDateTime";
-import { ChicagoOrSinai } from "../formComponents/ChicagoOrSinai";
-import { TimeAvailability } from "../formComponents/TimeAvailability";
+import { Year }from "../formComponents/requestFormComponents/Year";
+import { Email } from "../formComponents/requestFormComponents/Email";
+import { VolunteerWishList } from "../formComponents/requestFormComponents/VolunteerWishList";
+import { ChicagoOrSinai } from "../formComponents/requestFormComponents/ChicagoOrSinai";
+import { TimeAvailability } from "../formComponents/requestFormComponents/TimeAvailability";
 
 //MUI
 import { Box, Button, Container, Switch, Typography, useTheme } from "@mui/material"
 
 
-export const TempFormPage = () => {
+export const RequestPage = () => {
     const theme = useTheme();
     const navigate = useNavigate();
 
@@ -24,7 +23,7 @@ export const TempFormPage = () => {
     const [year, setYear] = useState('');
     const [duration, setDuration] = useState('');
 
-    const [futureOpportunity, setFutureOpportunity] = useState({
+    const [activities, setActivities] = useState({
         bloodDrives: false,
         clinic: false,
         children: false,
@@ -37,23 +36,40 @@ export const TempFormPage = () => {
     });
 
     const [selectedTimes, setSelectedTimes] = useState({
-        Monday : null,
-        Tuesday : null,
-        Wednesday : null,
-        Thursday : null,
-        Friday : null,
-        Saturday : null,
-        Sunday : null,
+        Monday : [0,24],
+        Tuesday : [0,24],
+        Wednesday : [0,24],
+        Thursday : [0,24],
+        Friday : [0,24],
+        Saturday : [0,24],
+        Sunday : [0,24],
       });
 
+    const filteredActivities = {}
+    const filteredDay = {}
+
     const onSubmitForm = async (e) => {
-        // console.log(email)
-        // console.log(year)
-        // console.log(opportunity)
-        // console.log(duration)
-        // console.log(futureOpportunity)
-        // console.log(selectedTimes)
         e.preventDefault()
+        for (let activity in activities){
+            if (activities[activity] === true){
+                filteredActivities[activity] = activities[activity]
+            }
+        }
+        for (let day in selectedTimes) {
+            if (selectedTimes[day] === false){
+                continue
+            }else {
+                filteredDay[day] = selectedTimes[day]
+            }
+        }
+        const data = {
+            email,
+            year,
+            duration,
+            activities : filteredActivities,
+            selectedTimes : filteredDay,
+        }
+        console.log(data)
     }
     
     return (
@@ -70,8 +86,8 @@ export const TempFormPage = () => {
                     <Email email={email} setEmail={setEmail} />
                     <Year year={year} setYear={setYear} />
                     <ChicagoOrSinai duration={duration} setDuration={setDuration} />
-                    <FutureVolunteerings futureOpportunity={futureOpportunity} setFutureOpportunity={setFutureOpportunity} />
                     <TimeAvailability selectedTimes={selectedTimes} setSelectedTimes={setSelectedTimes} />
+                    <VolunteerWishList activities={activities} setActivities={setActivities} />
                     <Box sx={{display:'flex', flexDirection:'row', alignItems:'center', gap:2 }}>
                         <Switch
                             checked={checked}
@@ -82,7 +98,7 @@ export const TempFormPage = () => {
                         <Typography>Send me a copy of my responses.</Typography>
                     </Box>
                     <Box>
-                        <Button type="submit" variant='contained'>submit</Button>
+                        <Button type="submit" variant='contained'>Submit</Button>
                     </Box>
                 </Container>
             </Form>
