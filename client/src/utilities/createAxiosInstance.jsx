@@ -1,5 +1,23 @@
 import axios from 'axios';
 
+async function refreshToken() {
+  const refreshToken = localStorage.getItem("refresh_token");
+
+  try {
+    const response = await axios.post("https://yourbackend.com/api/token/refresh/", {
+      refresh: refreshToken,
+    });
+
+    const newAccessToken = response.data.access;
+    localStorage.setItem("access_token", newAccessToken);
+
+    return { success: true, access: newAccessToken };
+  } catch (error) {
+    console.error("Token refresh error:", error);
+    return { success: false };
+  }
+}
+
 function createAxiosInstance() {
   const accessToken = localStorage.getItem("access_token");
 
