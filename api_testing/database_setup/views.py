@@ -34,6 +34,7 @@ class EventAPIView(APIView):
             event_activity_serializer = EventActivitySerializer(data=event_activity_data)
             if event_activity_serializer.is_valid(raise_exception=True):
                 event_activity_serializer.save()
+                # Find volunteers to assign to event activity
             else:
                 return Response(event_activity_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
