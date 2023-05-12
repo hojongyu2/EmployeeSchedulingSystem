@@ -23,10 +23,17 @@ class EventSerializer(serializers.ModelSerializer):
     class Meta:
         model = Event
         fields = ['name', 'date_of_event', 'start_time', 'end_time']
-        
-class EventActivitySerializer(serializers.ModelSerializer):
+
+class GetEventActivitySerializer(serializers.ModelSerializer):
     event = serializers.PrimaryKeyRelatedField(read_only=True)
     activity = serializers.PrimaryKeyRelatedField(read_only=True)
+    class Meta:
+        model = EventActivity
+        fields = ['event', 'activity', 'date_of_event', 'start_time', 'end_time', 'required_volunteers']
+    
+class EventActivitySerializer(serializers.ModelSerializer):
+    event = serializers.IntegerField()
+    activity = serializers.IntegerField()
     class Meta:
         model = EventActivity
         fields = ['event', 'activity', 'date_of_event', 'start_time', 'end_time', 'required_volunteers']
