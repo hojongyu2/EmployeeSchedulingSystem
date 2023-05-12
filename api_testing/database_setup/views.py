@@ -1,6 +1,6 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from .serializers import VolunteerSerializer, EventSerializer, EventActivitySerializer, VolunteerShiftSerializer
+from .serializers import VolunteerSerializer, EventSerializer, EventActivitySerializer, VolunteerShiftSerializer, GetEventActivitySerializer
 from rest_framework import status
 from .models import Activity, Event, VolunteerShift, EventActivity, Volunteer
 # Create your views here.
@@ -56,7 +56,7 @@ class EventActivityAPIView(APIView):
         # Get all event activities associated with the given event ID
         event_activities = EventActivity.objects.filter(event__id=event_id)
 
-        serializer = EventActivitySerializer(event_activities, many=True)
+        serializer = GetEventActivitySerializer(event_activities, many=True)
         for data, event_activity in zip(serializer.data, event_activities):
             activity_id = data['activity']
             data['activity'] = Activity.objects.get(id=activity_id).name
