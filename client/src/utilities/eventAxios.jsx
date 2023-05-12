@@ -11,12 +11,12 @@ export const getAllExistEvents = async () => {
 }
 
 export const getAllExistActivities = async () => {
-    const response = await axios.get(`${baseURL}data/event-activity/`)
+    const response = await axios.post(`${baseURL}data/event-activity/`)
     console.log(response)
 }
 
 export const getAllVolunteers = async () => {
-    const response = await axios.get(`${baseURL}data/volunteer-shift/`)
+    const response = await axios.post(`${baseURL}data/volunteer-shift/`)
     console.log(response)
 }
 
