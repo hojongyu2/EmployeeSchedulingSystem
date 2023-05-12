@@ -5,7 +5,7 @@ import { Box, Container, useTheme } from "@mui/material";
 export default function Layout() {
     const theme = useTheme()
     return (
-        <Container sx={{backgroundColor: theme.palette.primary.main}}> 
+        <Container sx={{backgroundColor: theme.palette.primary.main}} > 
             <Box>
                 <Header />
             </Box>

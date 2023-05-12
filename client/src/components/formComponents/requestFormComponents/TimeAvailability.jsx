@@ -24,13 +24,13 @@ export const TimeAvailability = ({selectedTimes, setSelectedTimes}) => {
 
   const handleTimeChange = (day, newTimes) => {
     setSelectedTimes({ ...selectedTimes, [day]: newTimes });
-    console.log(selectedTimes)
+    // console.log(selectedTimes)
   };
 
   const handleNAChange = (day, isChecked) => {
     setDisabledDays({ ...disabledDays, [day]: isChecked });
     setSelectedTimes({ ...selectedTimes, [day]: isChecked ? false : [0, 24] });
-    console.log(selectedTimes)
+    // console.log(selectedTimes)
   };
 
   const formatHours = (value) => {

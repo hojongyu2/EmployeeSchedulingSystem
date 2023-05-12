@@ -19,10 +19,12 @@ async function refreshToken() {
 }
 
 function createAxiosInstance() {
+  const baseURL = import.meta.env.VITE_REACT_APP_AXIOS
+
   const accessToken = localStorage.getItem("access_token");
 
   const axiosInstance = axios.create({
-    baseURL: "https://yourbackend.com/api/",
+    baseURL: `${baseURL}`,
     headers: {
       Authorization: accessToken ? `Bearer ${accessToken}` : "",
       "Content-Type": "application/json",

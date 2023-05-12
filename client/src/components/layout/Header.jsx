@@ -20,7 +20,6 @@ import MoreIcon from '@mui/icons-material/MoreVert';
 export default function Header() {
   const {user, setUser} = useContext(userContext)
   
-
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
   const navigate = useNavigate()
@@ -104,10 +103,10 @@ export default function Header() {
       onClose={handleMobileMenuClose}
     >
       <MenuItem>
-        <Button sx={{color:'black'}}>Form</Button>
+        <Button sx={{color:'black'}}>create event</Button>
       </MenuItem>
       <MenuItem>
-        <Button sx={{color:'black'}}>Crurrent Event List</Button>
+        <Button sx={{color:'black'}}>Send Request</Button>
       </MenuItem>
       <MenuItem>
         <Button sx={{color:'black'}}>Students List</Button>
@@ -128,7 +127,7 @@ export default function Header() {
   );
 
   return (
-    <Box sx={{ flexGrow: 1 }}>
+    <Box sx={{ flexGrow: 1, width:'100%' }}>
       <AppBar position="static">
         <Toolbar>
           <Link href='/'>
@@ -136,22 +135,22 @@ export default function Header() {
               variant="h6"
               noWrap
               component="div"
-              sx={{ display: { sm: 'block' }, color:'black' }}
+              sx={{ display: { sm: 'block' }, color:'white' }}
             >
               MUI
             </Typography>
           </Link>
           <Box sx={{ display: { xs: 'none', sm: 'block' }}}>
-            <Link href='/#/form'>
-              <Button sx={{color:'black'}}>Form</Button>
+            <Link href='/#/create-event'>
+              <Button sx={{color:'white'}}>create event</Button>
             </Link>
-            <Link href='/#/formLists'>
-              <Button sx={{color:'black'}}>Crurrent Event List</Button>
+            <Link href='/#/request'>
+              <Button sx={{color:'white'}}>Send Request</Button>
             </Link>
-            <Button sx={{color:'black'}}>Students List</Button>
+            <Button sx={{color:'white'}}>Students List</Button>
           </Box>
           <Box sx={{ flexGrow: 1 }} />
-          <Typography sx={{color:'black'}}>{user && user.first_name}</Typography>
+          <Typography sx={{color:'white'}}>{user && user.first_name}</Typography>
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
             <IconButton
               size="large"

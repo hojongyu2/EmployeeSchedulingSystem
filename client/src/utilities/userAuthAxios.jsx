@@ -1,5 +1,7 @@
 import axios from 'axios';
+
 const baseURL = import.meta.env.VITE_REACT_APP_AXIOS
+
 export const userSignUp = async (userInfo) => {
     try {
         const response = await axios.post(`${baseURL}api/register/`, userInfo)

@@ -3,11 +3,11 @@ import CustomThemeProvider from './CustomThemeProvider'
 import Layout from './components/layout/Layout'
 import { LoginPage } from './components/pages/LoginPage'
 import { SignUpPage } from './components/pages/SignUpPage'
-import { CreateFormAndHomePage } from './components/pages/CreateFormAndHomePage'
+import { ListOfEventsAndHomePage } from './components/pages/ListOfEventsAndHomePage'
 import UserContextProvider from './components/context/UserContext'
-import { EventFormPage } from './components/pages/EventFormPage'
-import { EventFormListPage } from './components/pages/EventFormListPage'
 
+import { CreateEventPage } from './components/pages/CreateEventPage'
+import { RequestPage } from './components/pages/requestPage'
 
 
 function App() {
@@ -17,7 +17,7 @@ function App() {
       children: [
         {
           path: '/',
-          element: <CreateFormAndHomePage />
+          element: <ListOfEventsAndHomePage />
         },
         {
           path: '/signup',
@@ -28,12 +28,12 @@ function App() {
           element: <LoginPage />
         },
         {
-          path: '/form',
-          element: <EventFormPage />
+          path: '/create-event',
+          element: <CreateEventPage />
         },
         {
-          path: '/formLists',
-          element: <EventFormListPage />
+          path: '/request',
+          element: <RequestPage />
         },
       ]
     },

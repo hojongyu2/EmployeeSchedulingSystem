@@ -50,6 +50,10 @@ class Availability(models.Model):
 
     def overlaps(self, other_start, other_end):
         return self.start_time < other_end and self.end_time > other_start
+    
+    def __str__(self):
+        day = next(item[1] for item in self.DAYS_OF_WEEK if item[0] == self.day_of_week)
+        return f'{self.volunteer.name} - {day}'
 
 
 class Volunteer(models.Model):
@@ -61,66 +65,6 @@ class Volunteer(models.Model):
 
     def __str__(self):
         return self.name
-
-    def assign_to_shift(self):
-        availabilities = self.availability_set.all()
-        possible_assignments = []
-        for availability in availabilities:
-            event_activities = EventActivity.objects.filter(
-                date_of_event__week_day=availability.day_of_week + 1,  # Django week_day starts from 1 (Sunday)
-                start_time__lte=availability.end_time,
-                end_time__gte=availability.start_time,
-                activity__in=self.desired_activities.all()
-            ).order_by('start_time')
-            for event_activity in event_activities:
-                if event_activity.volunteers_needed_at(availability.start_time, availability.end_time).total_seconds() > 0:
-                    possible_assignments.append({
-                        'availability': availability,
-                        'event_activity': event_activity,
-                        'start_time': max(event_activity.start_time, availability.start_time),
-                        'end_time': min(event_activity.end_time, availability.end_time)
-                    })
-        
-        best_assignments = self.select_best_assignments(possible_assignments)
-        for assignment in best_assignments:
-            VolunteerShift.objects.create(
-                volunteer=self,
-                event_activity=assignment['event_activity'],
-                start_time=assignment['start_time'],
-                end_time=assignment['end_time']
-            )
-    def select_best_assignments(self, assignments):
-            sorted_assignments = sorted(assignments, key=lambda x: x['end_time'])
-            best_assignments = []
-            current_end_time = None
-            for assignment in sorted_assignments:
-                if current_end_time is None or assignment['start_time'] >= current_end_time:
-                    best_assignments.append(assignment)
-                    current_end_time = assignment['end_time']
-            return best_assignments    
-    def total_assigned_time(self):
-        shifts = self.volunteershift_set.all()
-        total_time = timedelta()
-        for shift in shifts:
-            total_time += time_to_datetime(shift.end_time) - time_to_datetime(shift.start_time)
-        return total_time
-        
-    def is_available(self, start_time, end_time):
-        availabilities = self.availability_set.filter(
-            start_time__lte=end_time,
-            end_time__gte=start_time,
-        )
-        if not availabilities:
-            return False
-        shifts = self.volunteershift_set.filter(
-            start_time__lt=end_time, 
-            end_time__gt=start_time
-        )
-        total_shift_time = timedelta()
-        for shift in shifts:
-            total_shift_time += min(shift.end_time, end_time) - max(shift.start_time, start_time)
-        return total_shift_time < (end_time - start_time)
-
 
 class EventActivity(models.Model):
     class Meta:

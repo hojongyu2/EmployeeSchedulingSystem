@@ -14,6 +14,11 @@ class VolunteerSignUpView(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
 class EventAPIView(APIView):
+    def get(self, request):
+        events = Event.objects.all()
+        serializer = EventSerializer(events, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+        
     def post(self, request):
         data = request.data
 
@@ -34,8 +39,16 @@ class EventAPIView(APIView):
             event_activity_serializer = EventActivitySerializer(data=event_activity_data)
             if event_activity_serializer.is_valid(raise_exception=True):
                 event_activity_serializer.save()
-                # Find volunteers to assign to event activity
             else:
                 return Response(event_activity_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
         return Response(event_serializer.data, status=status.HTTP_201_CREATED)
+
+#try to put all in one class?
+class Event(APIView):
+    pass
+
+class VolunteerShifts(APIView):
+    def get(self, request):
+        pass
+        # get all volunteer shifts related to event activity (request has event activity)
