@@ -17,6 +17,8 @@ class EventAPIView(APIView):
     def get(self, request):
         events = Event.objects.all()
         serializer = EventSerializer(events, many=True)
+        for event_data, event in zip(serializer.data, events):
+            event_data['id'] = event.id
         return Response(serializer.data, status=status.HTTP_200_OK)
         
     def post(self, request):
@@ -43,6 +45,10 @@ class EventAPIView(APIView):
                 return Response(event_activity_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
         return Response(event_serializer.data, status=status.HTTP_201_CREATED)
+
+class EventActivity(APIView):
+    def get(self, request):
+        pass
 
 class VolunteerShifts(APIView):
     def get(self, request):

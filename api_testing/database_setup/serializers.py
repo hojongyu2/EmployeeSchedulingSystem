@@ -70,7 +70,7 @@ class EventActivitySerializer(serializers.ModelSerializer):
                             shift_serializer.save()
 
         return event_activity
-
+# Probably need to improve this by def a new update method -- will look into later
 class VolunteerSerializer(serializers.ModelSerializer):
     desired_activities = ActivitySerializer(many=True)
     availability_set = AvailabilitySerializer(many=True)
