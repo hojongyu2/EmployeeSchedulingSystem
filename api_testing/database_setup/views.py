@@ -44,10 +44,6 @@ class EventAPIView(APIView):
 
         return Response(event_serializer.data, status=status.HTTP_201_CREATED)
 
-#try to put all in one class?
-# class Event(APIView):
-#     pass
-
 class VolunteerShifts(APIView):
     def get(self, request):
         pass
