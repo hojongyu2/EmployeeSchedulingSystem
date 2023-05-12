@@ -2,7 +2,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from .serializers import VolunteerSerializer, EventSerializer, EventActivitySerializer
 from rest_framework import status
-from .models import Activity, Event
+from .models import Activity, Event, VolunteerShift
 # Create your views here.
 
 class VolunteerSignUpView(APIView):
@@ -56,14 +56,21 @@ class EventActivity(APIView):
         # Get all event activities associated with the given event ID
         event_activities = EventActivity.objects.filter(event__id=event_id)
 
-        # Serialize the data
         serializer = EventActivitySerializer(event_activities, many=True)
 
-        # Return the serialized data in the response
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 
 class VolunteerShifts(APIView):
-    def get(self, request):
-        pass
-        # get all volunteer shifts related to event activity (request has event activity)
+    def post(self, request):
+        event_activity_id = request.data.eventActivityID
+        
+        if event_activity_id is None:
+            return Response({"error": "eventActivityID parameter is required"}, status=status.HTTP_400_BAD_REQUEST)
+
+        # Get all volunteer shifts associated with the event activity ID
+        volunteer_shifts = VolunteerShift.objects.filter(event_activity__id=event_activity_id)
+        
+        serializer = VolunteerSerializer(volunteer_shifts, many=True)
+        
+        return Response(serializer.data, status=status.HTTP_200_OK)
