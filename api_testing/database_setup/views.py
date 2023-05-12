@@ -7,6 +7,7 @@ from .models import Activity, Event, VolunteerShift, EventActivity, Volunteer
 
 class VolunteerSignUpView(APIView):
     def post(self, request, format=None):
+        print(request.data)
         serializer = VolunteerSerializer(data=request.data)
         if serializer.is_valid():
             volunteer = serializer.save()

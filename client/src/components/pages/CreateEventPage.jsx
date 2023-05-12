@@ -6,6 +6,7 @@ import { Title } from "../formComponents/createFormComponents/Title";
 import { Box, Button, Container } from "@mui/material"
 import { Activities } from "../formComponents/createFormComponents/Activities";
 import { VolunteerNumberForActivity } from "../formComponents/createFormComponents/VolunteerNumberForActivity";
+import { createEvent } from "../../utilities/eventAxios";
 
 export const CreateEventPage = () => {
     const [title, setTitle] = useState('');
@@ -23,26 +24,23 @@ export const CreateEventPage = () => {
     });
     const navigate = useNavigate()
 
-    const filtered = {}
-
-    const onSubmitCreateEvent = (e) => {
+    const onSubmitCreateEvent = async (e) => {
         e.preventDefault()
             // filtering only true value for activities on form submit and stored in filterd object.
-        for (let key in activities) {
-            if (activities[key].checked === true){
-                filtered[key] = activities[key]
-            }else {
-                continue
-            }
-        }
+        const filtered = Object.keys(activities)
+        .filter(key => activities[key].checked === true)
+        .map(key => ({'activity' : key, "date_of_event" : dateOfEvent, "start_time" : activities[key].startTime, "end_time" : activities[key].endTime, "required_volunteers" : activities[key].volunteerNumberNeeded}))
+        
         const eventData = {
-            title,
-            dateOfEvent,
-            startTime,
-            endTime,
-            activities: filtered
+            "name" : title,
+            "date_of_event" : dateOfEvent,
+            "start_time": startTime,
+            "end_time": endTime,
+            "activities": filtered
         }  
-        console.log(eventData)
+        // console.log(eventData)
+        const response = await createEvent(eventData)
+        
         // navigate('/')
     }
 
