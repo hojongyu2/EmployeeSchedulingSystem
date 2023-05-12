@@ -2,7 +2,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from .serializers import VolunteerSerializer, EventSerializer, EventActivitySerializer
 from rest_framework import status
-from .models import Activity
+from .models import Activity, Event
 # Create your views here.
 
 class VolunteerSignUpView(APIView):
@@ -45,8 +45,8 @@ class EventAPIView(APIView):
         return Response(event_serializer.data, status=status.HTTP_201_CREATED)
 
 #try to put all in one class?
-class Event(APIView):
-    pass
+# class Event(APIView):
+#     pass
 
 class VolunteerShifts(APIView):
     def get(self, request):

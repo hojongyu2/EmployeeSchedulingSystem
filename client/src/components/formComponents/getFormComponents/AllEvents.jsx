@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Collapse, Box } from '@mui/material';
 import { styled } from '@mui/system';
+import { getAllExistEvents } from '../../../utilities/eventAxios';
 
 const events = [
     {
@@ -127,6 +128,12 @@ const StyledTableCell = styled(TableCell)({
 function AllEvents() {
 const [openEventId, setOpenEventId] = useState(null);
 const [openActivityId, setOpenActivityId] = useState(null);
+
+const onClickGetAllEvents = async (e) => {
+    e.preventDefalut()
+    const response = await getAllExistEvents()
+    console.log(response)
+}
 
 const formatAvailableTimes = (availableTimes) => {
     return Object.entries(availableTimes).map(([day, times]) => (
