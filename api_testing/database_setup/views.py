@@ -1,8 +1,8 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from .serializers import VolunteerSerializer, EventSerializer, EventActivitySerializer
+from .serializers import VolunteerSerializer, EventSerializer, EventActivitySerializer, VolunteerShiftSerializer
 from rest_framework import status
-from .models import Activity, Event, VolunteerShift
+from .models import Activity, Event, VolunteerShift, EventActivity, Volunteer
 # Create your views here.
 
 class VolunteerSignUpView(APIView):
@@ -46,9 +46,9 @@ class EventAPIView(APIView):
 
         return Response(event_serializer.data, status=status.HTTP_201_CREATED)
 
-class EventActivity(APIView):
+class EventActivityAPIView(APIView):
     def post(self, request):
-        event_id = request.data.eventID
+        event_id = int(request.data['eventID'])
         
         if event_id is None:
             return Response({"error": "eventID parameter is required"}, status=status.HTTP_400_BAD_REQUEST)
@@ -57,13 +57,16 @@ class EventActivity(APIView):
         event_activities = EventActivity.objects.filter(event__id=event_id)
 
         serializer = EventActivitySerializer(event_activities, many=True)
-
+        for data, event_activity in zip(serializer.data, event_activities):
+            activity_id = data['activity']
+            data['activity'] = Activity.objects.get(id=activity_id).name
+            data['event_activity_id'] = event_activity.id
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 
-class VolunteerShifts(APIView):
+class VolunteerShiftsAPIview(APIView):
     def post(self, request):
-        event_activity_id = request.data.eventActivityID
+        event_activity_id = request.data.get('eventActivityID')
         
         if event_activity_id is None:
             return Response({"error": "eventActivityID parameter is required"}, status=status.HTTP_400_BAD_REQUEST)
@@ -71,6 +74,11 @@ class VolunteerShifts(APIView):
         # Get all volunteer shifts associated with the event activity ID
         volunteer_shifts = VolunteerShift.objects.filter(event_activity__id=event_activity_id)
         
-        serializer = VolunteerSerializer(volunteer_shifts, many=True)
+        serializer = VolunteerShiftSerializer(volunteer_shifts, many=True)
+
+        # Replace the volunteer id with the volunteer's name in the serialized data
+        for data in serializer.data:
+            volunteer_id = data['volunteer']
+            data['volunteer'] = Volunteer.objects.get(id=volunteer_id).name
         
         return Response(serializer.data, status=status.HTTP_200_OK)
