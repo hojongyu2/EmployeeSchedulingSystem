@@ -8,6 +8,16 @@ export const getAllExistEvents = async () => {
     console.log(response)
 }
 
+export const getAllExistActivities = async () => {
+    const response = await axios.get('data/allEvent/')
+    console.log(response)
+}
+
+export const getAllVolunteers = async () => {
+    const response = await axios.get('data/allEvent/')
+    console.log(response)
+}
+
 export const createEvent = async (data) => {
     const response = await axiosInstance.post('data/create-event/', data)
     console.log(response)
