@@ -47,8 +47,21 @@ class EventAPIView(APIView):
         return Response(event_serializer.data, status=status.HTTP_201_CREATED)
 
 class EventActivity(APIView):
-    def get(self, request):
-        pass
+    def post(self, request):
+        event_id = request.data.eventID
+        
+        if event_id is None:
+            return Response({"error": "eventID parameter is required"}, status=status.HTTP_400_BAD_REQUEST)
+
+        # Get all event activities associated with the given event ID
+        event_activities = EventActivity.objects.filter(event__id=event_id)
+
+        # Serialize the data
+        serializer = EventActivitySerializer(event_activities, many=True)
+
+        # Return the serialized data in the response
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
 
 class VolunteerShifts(APIView):
     def get(self, request):
