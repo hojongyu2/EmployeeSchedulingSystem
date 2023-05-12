@@ -1,9 +1,10 @@
+import axios from 'axios';
 import createAxiosInstance from './createAxiosInstance';
 
 const axiosInstance = createAxiosInstance()
 
 export const getAllExistEvents = async () => {
-    const response = await axiosInstance.get('data/allEvent/')
+    const response = await axios.get('data/allEvent/')
     console.log(response)
 }
 
