@@ -8,6 +8,8 @@ import { TimeAvailability } from "../formComponents/requestFormComponents/TimeAv
 
 //MUI
 import { Box, Button, Container, Switch, Typography, useTheme } from "@mui/material"
+import { sendOutVolunteerForm } from "../../utilities/eventAxios";
+import { Name } from "../formComponents/requestFormComponents/Name";
 
 
 export const RequestPage = () => {
@@ -18,7 +20,7 @@ export const RequestPage = () => {
     const handleChange = (event) => {
         setChecked(event.target.checked);
     };
-
+    const [name, setName] = useState('');
     const [email, setEmail] = useState('')
     const [year, setYear] = useState('');
     const [duration, setDuration] = useState('');
@@ -43,33 +45,52 @@ export const RequestPage = () => {
         Friday : [0,24],
         Saturday : [0,24],
         Sunday : [0,24],
-      });
-
-    const filteredActivities = {}
-    const filteredDay = {}
+    });
+    
+    let dayMapping = {
+        "Monday": 0,
+        "Tuesday": 1,
+        "Wednesday": 2,
+        "Thursday": 3,
+        "Friday": 4,
+        "Saturday": 5,
+        "Sunday": 6
+    };
 
     const onSubmitForm = async (e) => {
         e.preventDefault()
-        for (let activity in activities){
-            if (activities[activity] === true){
-                filteredActivities[activity] = activities[activity]
+
+        let filteredActivities = Object.keys(activities)
+        .filter(key => activities[key] === true)
+        .map(key => ({ 'name': key }));
+
+        let filteredTimes = Object.keys(selectedTimes)
+        .filter(day => selectedTimes[day] !== false)
+        .map(day => {
+            let time = selectedTimes[day];
+            let timeObject = {};
+            if (time === true) {
+                timeObject = { "start_time": "00:00", "end_time": "24:00" };
+            } else if (Array.isArray(time)) {
+                timeObject = { 
+                    "start_time": time[0].toString().padStart(2, '0') + ":00", 
+                    "end_time": time[1].toString().padStart(2, '0') + ":00" 
+                };
             }
-        }
-        for (let day in selectedTimes) {
-            if (selectedTimes[day] === false){
-                continue
-            }else {
-                filteredDay[day] = selectedTimes[day]
-            }
-        }
+            return { "day_of_week": dayMapping[day], ...timeObject };
+        });
+
         const data = {
+            name,
             email,
-            year,
-            duration,
-            activities : filteredActivities,
-            selectedTimes : filteredDay,
+            'year_in_school': year,
+            'duration_in_chicago':duration,
+            'desired_activities' : filteredActivities,
+            'availability_set' : filteredTimes,
         }
         console.log(data)
+        const response = await sendOutVolunteerForm(data)
+
     }
     
     return (
@@ -83,20 +104,12 @@ export const RequestPage = () => {
         >  
             <Form onSubmit={onSubmitForm}>
                 <Container sx={{display:'flex', flexDirection:'column', gap:2}}>
+                    <Name name={name} setName={setName} />
                     <Email email={email} setEmail={setEmail} />
                     <Year year={year} setYear={setYear} />
                     <ChicagoOrSinai duration={duration} setDuration={setDuration} />
                     <TimeAvailability selectedTimes={selectedTimes} setSelectedTimes={setSelectedTimes} />
                     <VolunteerWishList activities={activities} setActivities={setActivities} />
-                    <Box sx={{display:'flex', flexDirection:'row', alignItems:'center', gap:2 }}>
-                        <Switch
-                            checked={checked}
-                            onChange={handleChange}
-                            inputProps={{ 'aria-label': 'controlled' }}
-                            sx={{backgroundColor:'white', borderRadius:'50px'}}
-                        />
-                        <Typography>Send me a copy of my responses.</Typography>
-                    </Box>
                     <Box>
                         <Button type="submit" variant='contained'>Submit</Button>
                     </Box>

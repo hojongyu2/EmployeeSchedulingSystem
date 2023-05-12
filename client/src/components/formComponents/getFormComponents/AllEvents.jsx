@@ -123,7 +123,7 @@ const StyledTableContainer = styled(TableContainer)({
 
 const StyledTableCell = styled(TableCell)({
     cursor: 'pointer',
-  });
+});
 
 function AllEvents() {
 const [openEventId, setOpenEventId] = useState(null);

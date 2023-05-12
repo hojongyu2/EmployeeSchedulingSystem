@@ -9,23 +9,23 @@ export const getAllExistEvents = async () => {
     console.log(response)
     return response
 }
-getAllExistEvents()
-// export const getAllExistActivities = async () => {
-//     const response = await axios.get('data/allEvent/')
-//     console.log(response)
-// }
 
-// export const getAllVolunteers = async () => {
-//     const response = await axios.get('data/allEvent/')
-//     console.log(response)
-// }
+export const getAllExistActivities = async () => {
+    const response = await axios.get(`${baseURL}data/event-activity/`)
+    console.log(response)
+}
 
-// export const createEvent = async (data) => {
-//     const response = await axiosInstance.post('data/create-event/', data)
-//     console.log(response)
-// }
+export const getAllVolunteers = async () => {
+    const response = await axios.get(`${baseURL}data/volunteer-shift/`)
+    console.log(response)
+}
+
+export const createEvent = async (data) => {
+    const response = await axios.post(`${baseURL}data/event/`, data)
+    console.log(response)
+}
 
 export const sendOutVolunteerForm = async (data) => {
-    const response = await axiosInstance.post(`${baseURL}data/volunteer-signup/`, data)
+    const response = await axios.post(`${baseURL}data/volunteer-signup/`, data)
     console.log(response)
 }
