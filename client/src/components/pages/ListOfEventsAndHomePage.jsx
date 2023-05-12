@@ -2,6 +2,8 @@ import { useContext } from "react"
 import GreetingCard from "../card/GreetingCard"
 import { Box, Container, Typography, useTheme } from "@mui/material"
 import { userContext } from "../context/UserContext"
+import  AllEvents  from "../formComponents/getFormComponents/AllEvents"
+
 
 
 export const ListOfEventsAndHomePage = () => {
@@ -15,7 +17,8 @@ export const ListOfEventsAndHomePage = () => {
         <Container>
             {user &&
                 <Box>
-                    <Typography sx={{color:'black'}}>Event List</Typography>
+                    <Typography>List of all events created</Typography>
+                    <AllEvents />
                 </Box>
             }
             {!user &&
