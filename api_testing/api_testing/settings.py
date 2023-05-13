@@ -163,6 +163,6 @@ SIMPLE_JWT = {
 }
 
 CORS_ORIGIN_WHITELIST = [
-    'http://localhost:5173',
+    'http://localhost:5174',
 ]
 AUTH_USER_MODEL = 'authentication.CustomUser'
