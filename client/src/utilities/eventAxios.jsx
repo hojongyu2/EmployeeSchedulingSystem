@@ -7,7 +7,7 @@ const axiosInstance = createAxiosInstance()
 
 export const getAllExistEvents = async () => {
     try {
-        const response = await axios.get(`${baseURL}data/event/`)
+        const response = await axiosInstance.get(`${baseURL}data/event/`)
         // console.log(response)
         return response.data
     }catch (e) {
@@ -17,7 +17,7 @@ export const getAllExistEvents = async () => {
 
 export const getAllExistActivities = async (data) => {
     try {
-        const response = await axios.post(`${baseURL}data/event-activity/`, data)
+        const response = await axiosInstance.post(`${baseURL}data/event-activity/`, data)
         // console.log(response.data)
         return response.data
     }catch (e) {
@@ -27,7 +27,7 @@ export const getAllExistActivities = async (data) => {
 // getAllExistActivities({eventID:15})
 export const getAllVolunteers = async (data) => {
     try {
-        const response = await axios.post(`${baseURL}data/volunteer-shift/`, data)
+        const response = await axiosInstance.post(`${baseURL}data/volunteer-shift/`, data)
         return response.data
     }catch (e) {
         console.log('Error while fetching event volunteer data :' + e)
@@ -36,7 +36,7 @@ export const getAllVolunteers = async (data) => {
 // getAllVolunteers({eventActivityID: 1})
 export const createEvent = async (data) => {
     try {
-        const response = await axios.post(`${baseURL}data/event/`, data)
+        const response = await axiosInstance.post(`${baseURL}data/event/`, data)
         return response
     }catch (e) {
         console.log('Error while fetching event data :' + e)

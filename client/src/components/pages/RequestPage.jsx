@@ -90,7 +90,7 @@ export const RequestPage = () => {
             'desired_activities' : filteredActivities,
             'availability_set' : filteredTimes,
         }
-        // console.log(data)
+        console.log(data)
         const response = await sendOutVolunteerForm(data)
         if (response.id){
             // this need to handle properly
