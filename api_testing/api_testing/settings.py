@@ -166,3 +166,5 @@ CORS_ORIGIN_WHITELIST = [
     'http://localhost:5173',
 ]
 AUTH_USER_MODEL = 'authentication.CustomUser'
+
+BASE_URL = os.getenv('BASE_URL', 'http://localhost:8000')
