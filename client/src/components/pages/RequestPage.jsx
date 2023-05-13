@@ -76,11 +76,12 @@ export const RequestPage = () => {
             } else if (Array.isArray(time)) {
                 timeObject = { 
                     "start_time": time[0].toString().padStart(2, '0') + ":00", 
-                    "end_time": time[1].toString().padStart(2, '0') + ":00" 
+                    "end_time": (time[1] === 23.59 ? '23:59' : time[1].toString().padStart(2, '0') + ":00")
                 };
             }
             return { "day_of_week": dayMapping[day], ...timeObject };
         });
+    
 
         const data = {
             name,
@@ -90,7 +91,7 @@ export const RequestPage = () => {
             'desired_activities' : filteredActivities,
             'availability_set' : filteredTimes,
         }
-        console.log(data)
+        // console.log(data)
         const response = await sendOutVolunteerForm(data)
         if (response.id){
             // this need to handle properly
