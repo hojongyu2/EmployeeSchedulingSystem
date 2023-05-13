@@ -18,8 +18,8 @@ import MoreIcon from '@mui/icons-material/MoreVert';
 
 
 export default function Header() {
-  const {user, setUser} = useContext(userContext)
-  
+  const { user, setUser } = useContext(userContext)
+
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
   const navigate = useNavigate()
@@ -103,13 +103,13 @@ export default function Header() {
       onClose={handleMobileMenuClose}
     >
       <MenuItem>
-        <Button sx={{color:'black'}}>create event</Button>
+        <Button sx={{ color: 'black' }}>create event</Button>
       </MenuItem>
       <MenuItem>
-        <Button sx={{color:'black'}}>Send Request</Button>
+        <Button sx={{ color: 'black' }}>Send Request</Button>
       </MenuItem>
       <MenuItem>
-        <Button sx={{color:'black'}}>Students List</Button>
+        <Button sx={{ color: 'black' }}>Students List</Button>
       </MenuItem>
       <MenuItem onClick={handleProfileMenuOpen}>
         <IconButton
@@ -127,30 +127,24 @@ export default function Header() {
   );
 
   return (
-    <Box sx={{ flexGrow: 1, width:'100%' }}>
+    <Box sx={{ flexGrow: 1, width: '100%' }}>
       <AppBar position="static">
         <Toolbar>
-          <Link href='/'>
-            <Typography
-              variant="h6"
-              noWrap
-              component="div"
-              sx={{ display: { sm: 'block' }, color:'white' }}
-            >
-              MUI
-            </Typography>
-          </Link>
-          <Box sx={{ display: { xs: 'none', sm: 'block' }}}>
-            <Link href='/#/create-event'>
-              <Button sx={{color:'white'}}>create event</Button>
-            </Link>
-            <Link href='/#/request'>
-              <Button sx={{color:'white'}}>Send Request</Button>
-            </Link>
-            <Button sx={{color:'white'}}>Students List</Button>
+          <Typography
+            variant="h6"
+            noWrap
+            component="div"
+            sx={{ display: { sm: 'block' }, color: 'white' }}
+            onClick={() => navigate('/')}
+          >
+            MUI
+          </Typography>
+          <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
+            <Button sx={{ color: 'white' }} onClick={() => navigate('/create-event')}>create event</Button>
+            <Button sx={{ color: 'white' }} onClick={() => navigate('/request')}>Send Request</Button>
           </Box>
           <Box sx={{ flexGrow: 1 }} />
-          <Typography sx={{color:'white'}}>{user && user.first_name}</Typography>
+          <Typography sx={{ color: 'white' }}>{user && user.first_name}</Typography>
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
             <IconButton
               size="large"
