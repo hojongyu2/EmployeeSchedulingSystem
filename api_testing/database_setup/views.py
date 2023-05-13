@@ -1,5 +1,6 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from rest_framework.permissions import IsAuthenticated
 from .serializers import VolunteerSerializer, EventSerializer, EventActivitySerializer, VolunteerShiftSerializer, GetEventActivitySerializer
 from rest_framework import status
 from .models import Activity, Event, VolunteerShift, EventActivity, Volunteer
@@ -15,6 +16,7 @@ class VolunteerSignUpView(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
 class EventAPIView(APIView):
+    permission_classes = [IsAuthenticated]
     def get(self, request):
         events = Event.objects.all()
         serializer = EventSerializer(events, many=True)
@@ -48,6 +50,7 @@ class EventAPIView(APIView):
         return Response(event_serializer.data, status=status.HTTP_201_CREATED)
 
 class EventActivityAPIView(APIView):
+    permission_classes = [IsAuthenticated]
     def post(self, request):
         event_id = int(request.data['eventID'])
         
@@ -66,6 +69,7 @@ class EventActivityAPIView(APIView):
 
 
 class VolunteerShiftsAPIview(APIView):
+    permission_classes = [IsAuthenticated]
     def post(self, request):
         event_activity_id = request.data.get('eventActivityID')
         
