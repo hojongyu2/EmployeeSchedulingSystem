@@ -14,12 +14,13 @@ import TimePickerForActivity from './TimePickerForActivity';
 import { VolunteerNumberForActivity } from './VolunteerNumberForActivity';
 
 
-export const Activities = ({ activities, setActivities }) => {
+export const Activities = ({ activities, setActivities, error, setError }) => {
     const theme = useTheme();
 
     const handleChange = (event) => {
         const activityName = event.target.name;
         const isChecked = event.target.checked;
+
         setActivities({
             ...activities,
             [activityName]: {
@@ -36,21 +37,24 @@ export const Activities = ({ activities, setActivities }) => {
           ...activities,
           [name]: { ...activities[name], startTime, endTime },
         });
-      };
+    };
     
-      const handleVolunteerNumberChange = (name, newVolunteerNumber) => {
+    const handleVolunteerNumberChange = (name, newVolunteerNumber) => {
         setActivities({
-          ...activities,
-          [name]: { ...activities[name], volunteerNumberNeeded: newVolunteerNumber },
+            ...activities,
+            [name]: { ...activities[name], volunteerNumberNeeded: newVolunteerNumber },
         });
-      };
+    };
     
+
+
     return (
         <Container sx={{ backgroundColor: 'white', borderRadius: '10px' }}>
             <FormControl component="fieldset">
                 <FormLabel component="legend" sx={{ '&.Mui-focused': { color: 'black', }, pt: 2, }}>
+                    {error && <Typography variant='h6' sx={{color:'red'}}>{error}</Typography>}
                     <Typography sx={{ color: 'black' }}>
-                        What future volunteer activities are you interested in?
+                        Choose your events
                     </Typography>
                 </FormLabel>
 

@@ -27,6 +27,7 @@ export default function TimePickerForActivity({ onTimeChange, initialStartTime, 
           label="Controlled picker"
           value={start}
           onChange={handleStartTimeChange}
+          required
         />
         <TimePicker
           label="Controlled picker"

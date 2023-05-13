@@ -10,7 +10,7 @@ export const ChicagoOrSinai = ({duration, setDuration}) => {
     return (
         <Container sx={{ backgroundColor: 'white', borderRadius: "10px" }}>
                 <InputLabel htmlFor="duration" sx={{ color:"black" }}>How long will you be at Sinai or Chicago?</InputLabel>   
-                <FormControl fullWidth variant="outlined" sx={{mt:'10px' ,mb:'10px'}}>
+                <FormControl fullWidth required variant="outlined" sx={{mt:'10px' ,mb:'10px'}}>
                     <InputLabel htmlFor="duration">Select your duration of stay</InputLabel>
                     <Select
                         value={duration}
