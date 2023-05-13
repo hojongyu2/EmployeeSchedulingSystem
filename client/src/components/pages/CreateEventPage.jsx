@@ -25,7 +25,6 @@ export const CreateEventPage = () => {
     //error handler for activities 
     const [error, setError] = useState(false)
     const navigate = useNavigate()
-
     const onSubmitCreateEvent = async (e) => {
         e.preventDefault()
             // filtering only true value for activities on form submit and stored in filterd object.
