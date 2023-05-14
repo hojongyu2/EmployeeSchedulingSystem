@@ -1,24 +1,35 @@
-import { useContext } from "react"
+import { useContext, useEffect, useState } from "react"
 import GreetingCard from "../card/GreetingCard"
-import { Box, Container, Typography, useTheme } from "@mui/material"
 import { userContext } from "../context/UserContext"
 import  AllEvents  from "../formComponents/getFormComponents/AllEvents"
+import { getAllExistEvents } from "../../utilities/eventAxios"
+import { Box, Container, Typography } from "@mui/material"
 
 
 
 export const ListOfEventsAndHomePage = () => {
-    const theme = useTheme()
 
     // Use the useContext hook to access and manage user-related state variables from the userContext.
-    const { user, setUser } = useContext(userContext)
+    const { user } = useContext(userContext)
+    const [allEventData, setAllEventData] = useState([])
+    const [allActivityData, setAllActivityData] = useState([])
+    const [allVolunteerData, setAllvolunteerData] = useState([])
 
+    useEffect(() => {
+        const fetchData = async () => {
+            const response = await getAllExistEvents()
+            setAllEventData(response)
+        }
+        fetchData()
+    },[])
+    console.log(user)
     return (
 
         <Container>
             {user &&
                 <Box>
                     <Typography>List of all events created</Typography>
-                    <AllEvents />
+                    <AllEvents allEventData={allEventData} setAllEventData={setAllEventData} allActivityData={allActivityData} setAllActivityData={setAllActivityData} allVolunteerData={allVolunteerData} setAllvolunteerData={setAllvolunteerData} />
                 </Box>
             }
             {!user &&

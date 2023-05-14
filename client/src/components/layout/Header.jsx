@@ -9,10 +9,10 @@ import {AppBar, Box, Toolbar, IconButton, Typography, Menu, Container, Avatar, B
 import MenuIcon from '@mui/icons-material/Menu';
 import AdbIcon from '@mui/icons-material/Adb';
 
-const Header = () => {
-  const {user, setUser} = useContext(userContext)
-  const navigate = useNavigate()
-  
+
+export default function Header() {
+  const { user, setUser } = useContext(userContext)
+
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
   const isMenuOpen = Boolean(anchorEl);
@@ -77,144 +77,73 @@ const Header = () => {
 //     </Menu>
 //   );
 
-//   const mobileMenuId = 'primary-search-account-menu-mobile';
-//   const renderMobileMenu = (
-//     <Menu
-//       anchorEl={mobileMoreAnchorEl}
-//       anchorOrigin={{
-//         vertical: 'top',
-//         horizontal: 'right',
-//       }}
-//       id={mobileMenuId}
-//       keepMounted
-//       transformOrigin={{
-//         vertical: 'top',
-//         horizontal: 'right',
-//       }}
-//       open={isMobileMenuOpen}
-//       onClose={handleMobileMenuClose}
-//     >
-//       <MenuItem>
-//         <Button>create event</Button>
-//       </MenuItem>
-//       <MenuItem>
-//         <Button>Send Request</Button>
-//       </MenuItem>
-//       <MenuItem>
-//         <Button>Students List</Button>
-//       </MenuItem>
-//       <MenuItem onClick={handleProfileMenuOpen}>
-//         <IconButton
-//           size="large"
-//           aria-label="account of current user"
-//           aria-controls="primary-search-account-menu"
-//           aria-haspopup="true"
-//           color="inherit"
-//         >
-//           <AccountCircle />
-//         </IconButton>
-//         <p>Profile</p>
-//       </MenuItem>
-//     </Menu>
-//   );
-
-//   return (
-//     <Box sx={{ flexGrow: 1, width:'100%' }}>
-//       <AppBar position="static">
-//         <Toolbar>
-//           <Link href='/'>
-//             <Typography
-//               variant="h6"
-//               noWrap
-//               component="div"
-//               sx={{ display: { sm: 'block' }}}
-//             >
-//               MUI
-//             </Typography>
-//           </Link>
-//           <Box sx={{ display: { xs: 'none', sm: 'block' }}}>
-//             <Link href='/#/create-event'>
-//               <Button sx={{}}>create event</Button>
-//             </Link>
-//             <Link href='/#/request'>
-//               <Button sx={{}}>Send Request</Button>
-//             </Link>
-//             <Button sx={{}}>Students List</Button>
-//           </Box>
-//           <Box sx={{ flexGrow: 1 }} />
-//           <Typography sx={{}}>{user && user.first_name}</Typography>
-//           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-//             <IconButton
-//               size="large"
-//               edge="end"
-//               aria-label="account of current user"
-//               aria-controls={menuId}
-//               aria-haspopup="true"
-//               onClick={handleProfileMenuOpen}
-//               color="inherit"
-//             >
-//               <AccountCircle />
-//             </IconButton>
-//           </Box>
-//           <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
-//             <IconButton
-//               size="large"
-//               aria-label="show more"
-//               aria-controls={mobileMenuId}
-//               aria-haspopup="true"
-//               onClick={handleMobileMenuOpen}
-//               color="inherit"
-//             >
-//               <MoreIcon />
-//             </IconButton>
-//           </Box>
-//         </Toolbar>
-//       </AppBar>
-//       {renderMobileMenu}
-//       {renderMenu}
-//     </Box>
-//   );
-// }
-
-  const [anchorElNav, setAnchorElNav] = React.useState(null);
-  const [anchorElUser, setAnchorElUser] = React.useState(null);
-
-  const handleOpenNavMenu = (event) => {
-    setAnchorElNav(event.currentTarget);
-  };
-  const handleOpenUserMenu = (event) => {
-    setAnchorElUser(event.currentTarget);
-  };
-
-  const handleCloseNavMenu = () => {
-    setAnchorElNav(null);
-  };
-
-  const handleCloseUserMenu = () => {
-    setAnchorElUser(null);
-  };
+  const mobileMenuId = 'primary-search-account-menu-mobile';
+  const renderMobileMenu = (
+    <Menu
+      anchorEl={mobileMoreAnchorEl}
+      anchorOrigin={{
+        vertical: 'top',
+        horizontal: 'right',
+      }}
+      id={mobileMenuId}
+      keepMounted
+      transformOrigin={{
+        vertical: 'top',
+        horizontal: 'right',
+      }}
+      open={isMobileMenuOpen}
+      onClose={handleMobileMenuClose}
+    >
+      <MenuItem>
+        <Button sx={{color:'black'}}>create event</Button>
+      </MenuItem>
+      <MenuItem>
+        <Button sx={{color:'black'}}>Send Request</Button>
+      </MenuItem>
+      <MenuItem>
+        <Button sx={{color:'black'}}>Students List</Button>
+      </MenuItem>
+      <MenuItem onClick={handleProfileMenuOpen}>
+        <IconButton
+          size="large"
+          aria-label="account of current user"
+          aria-controls="primary-search-account-menu"
+          aria-haspopup="true"
+          color="inherit"
+        >
+          <AccountCircle />
+        </IconButton>
+        <p>Profile</p>
+      </MenuItem>
+    </Menu>
+  );
 
   return (
-    <AppBar position="static">
-      <Container maxWidth="xl">
-        <Toolbar disableGutters>
-          <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
-          <Typography
-            variant="h6"
-            noWrap
-            component="a"
-            href="/"
-            sx={{
-              mr: 2,
-              display: { xs: 'none', md: 'flex' },
-              letterSpacing: '.3rem',
-              textDecoration: 'none',
-            }}
-          >
-            SHIFT
-          </Typography>
-
-          <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
+    <Box sx={{ flexGrow: 1, width:'100%' }}>
+      <AppBar position="static">
+        <Toolbar>
+          <Link href='/'>
+            <Typography
+              variant="h6"
+              noWrap
+              component="div"
+              sx={{ display: { sm: 'block' }, color:'white' }}
+            >
+              MUI
+            </Typography>
+          </Link>
+          <Box sx={{ display: { xs: 'none', sm: 'block' }}}>
+            <Link href='/#/create-event'>
+              <Button sx={{color:'white'}}>create event</Button>
+            </Link>
+            <Link href='/#/request'>
+              <Button sx={{color:'white'}}>Send Request</Button>
+            </Link>
+            <Button sx={{color:'white'}}>Students List</Button>
+          </Box>
+          <Box sx={{ flexGrow: 1 }} />
+          <Typography sx={{color:'white'}}>{user && user.first_name}</Typography>
+          <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
             <IconButton
               size="large"
               aria-label="account of current user"

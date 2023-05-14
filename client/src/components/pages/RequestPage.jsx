@@ -38,13 +38,13 @@ export const RequestPage = () => {
     });
 
     const [selectedTimes, setSelectedTimes] = useState({
-        Monday : [0,24],
-        Tuesday : [0,24],
-        Wednesday : [0,24],
-        Thursday : [0,24],
-        Friday : [0,24],
-        Saturday : [0,24],
-        Sunday : [0,24],
+        Monday : [0,0],
+        Tuesday : [0,0],
+        Wednesday : [0,0],
+        Thursday : [0,0],
+        Friday : [0,0],
+        Saturday : [0,0],
+        Sunday : [0,0],
     });
     
     let dayMapping = {
@@ -59,11 +59,13 @@ export const RequestPage = () => {
 
     const onSubmitForm = async (e) => {
         e.preventDefault()
-
+        
+        //filter all unchecked/false activities and change the data format as objs within an array
         let filteredActivities = Object.keys(activities)
         .filter(key => activities[key] === true)
         .map(key => ({ 'name': key }));
 
+        //filter all unchecked/false day/times and change the data format as objs within an array
         let filteredTimes = Object.keys(selectedTimes)
         .filter(day => selectedTimes[day] !== false)
         .map(day => {
@@ -74,11 +76,12 @@ export const RequestPage = () => {
             } else if (Array.isArray(time)) {
                 timeObject = { 
                     "start_time": time[0].toString().padStart(2, '0') + ":00", 
-                    "end_time": time[1].toString().padStart(2, '0') + ":00" 
+                    "end_time": (time[1] === 23.59 ? '23:59' : time[1].toString().padStart(2, '0') + ":00")
                 };
             }
             return { "day_of_week": dayMapping[day], ...timeObject };
         });
+    
 
         const data = {
             name,
@@ -88,9 +91,15 @@ export const RequestPage = () => {
             'desired_activities' : filteredActivities,
             'availability_set' : filteredTimes,
         }
-        console.log(data)
+        // console.log(data)
         const response = await sendOutVolunteerForm(data)
-
+        if (response.id){
+            // this need to handle properly
+            alert('Do not forget to handle this route')
+            navigate('/')
+        }else {
+            alert('errrrrrrrrr')
+        }
     }
     
     return (

@@ -22,8 +22,9 @@ export const CreateEventPage = () => {
         patientRelated: { checked: false, startTime: null, endTime: null, volunteerNumberNeeded: 0 },
         weekendEvents: { checked: false, startTime: null, endTime: null, volunteerNumberNeeded: 0 },
     });
+    //error handler for activities 
+    const [error, setError] = useState(false)
     const navigate = useNavigate()
-
     const onSubmitCreateEvent = async (e) => {
         e.preventDefault()
             // filtering only true value for activities on form submit and stored in filterd object.
@@ -39,9 +40,16 @@ export const CreateEventPage = () => {
             "activities": filtered
         }  
         // console.log(eventData)
-        const response = await createEvent(eventData)
+        if (filtered.length === 0){
+            setError('You must select one of the option')
+        }else {
+            const response = await createEvent(eventData)
+            if(response.data){
+                setError(true)
+                navigate('/')
+            }
+        }
         
-        // navigate('/')
     }
 
     return (
@@ -56,7 +64,7 @@ export const CreateEventPage = () => {
                     setStartTime={setStartTime} 
                     endTime={endTime} 
                     setEndTime={setEndTime} />
-                    <Activities activities={activities} setActivities={setActivities} />
+                    <Activities activities={activities} setActivities={setActivities} error={error} setError={setError} />
                     <Box>
                         <Button type="submit" variant='contained'>Create Event</Button>
                     </Box>

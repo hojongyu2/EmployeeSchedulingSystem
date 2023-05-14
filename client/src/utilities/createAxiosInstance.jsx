@@ -1,10 +1,12 @@
 import axios from 'axios';
 
+const baseURL = import.meta.env.VITE_REACT_APP_AXIOS
+
 async function refreshToken() {
   const refreshToken = localStorage.getItem("refresh_token");
 
   try {
-    const response = await axios.post("https://yourbackend.com/api/token/refresh/", {
+    const response = await axios.post(`${baseURL}/api/token/refresh/`, {
       refresh: refreshToken,
     });
 
