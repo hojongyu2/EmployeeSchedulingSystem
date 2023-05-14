@@ -4,11 +4,11 @@ from rest_framework.permissions import IsAuthenticated
 from .serializers import VolunteerSerializer, EventSerializer, EventActivitySerializer, VolunteerShiftSerializer, GetEventActivitySerializer
 from rest_framework import status
 from .models import Activity, Event, VolunteerShift, EventActivity, Volunteer
+from django.http import HttpResponse
 # Create your views here.
 
 class VolunteerSignUpView(APIView):
     def post(self, request, format=None):
-        print(request.data)
         serializer = VolunteerSerializer(data=request.data)
         if serializer.is_valid():
             volunteer = serializer.save()
@@ -87,3 +87,22 @@ class VolunteerShiftsAPIview(APIView):
             data['volunteer'] = Volunteer.objects.get(id=volunteer_id).name
         
         return Response(serializer.data, status=status.HTTP_200_OK)
+
+class ConfirmShiftView(APIView):
+    def get(self, request, shift_id, confirmed_value, format=None):
+        try:
+            shift = VolunteerShift.objects.get(pk=shift_id)
+
+            if confirmed_value.lower() == 'yes':
+                shift.confirmed = 'yes'
+            elif confirmed_value.lower() == 'no':
+                shift.confirmed = 'no'
+                shift.delete()
+            else:
+                return Response({'error': 'Invalid confirmed_value'}, status=status.HTTP_400_BAD_REQUEST)
+                
+            shift.save()
+            return Response({'detail': 'Shift confirmation updated successfully.'}, status=status.HTTP_200_OK)
+
+        except VolunteerShift.DoesNotExist:
+            return Response({'error': 'Shift not found'}, status=status.HTTP_404_NOT_FOUND)
