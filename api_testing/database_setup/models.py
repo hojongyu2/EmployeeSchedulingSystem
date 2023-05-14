@@ -101,9 +101,9 @@ class VolunteerShift(models.Model):
     event_activity = models.ForeignKey(EventActivity, on_delete=models.CASCADE)
     start_time = models.TimeField()
     end_time = models.TimeField()
-
+    confirmed = models.BooleanField(default=False)
     class Meta:
-        unique_together = ('volunteer', 'event_activity', 'start_time', 'end_time')
+        unique_together = ('volunteer', 'event_activity', 'start_time', 'end_time', 'confirmed')
 
     def __str__(self):
         return f'{self.volunteer.name} - {self.event_activity} - {self.start_time} to {self.end_time}'

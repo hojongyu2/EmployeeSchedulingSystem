@@ -168,3 +168,11 @@ CORS_ORIGIN_WHITELIST = [
 AUTH_USER_MODEL = 'authentication.CustomUser'
 
 BASE_URL = os.getenv('BASE_URL', 'http://localhost:8000')
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.sendgrid.net'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'apikey' # this is literally "apikey"
+EMAIL_HOST_PASSWORD = os.environ.get('SENDGRID_API_KEY')
+DEFAULT_FROM_EMAIL = 'joshua.parina@gmail.com'
