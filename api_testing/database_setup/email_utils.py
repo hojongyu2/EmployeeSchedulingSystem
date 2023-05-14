@@ -34,7 +34,7 @@ def send_confirmation_email(volunteer_shift):
     Start Time: {volunteer_shift.start_time}<br/>
     End Time: {volunteer_shift.end_time}</p>
 
-    <p>To confirm your attendance for this event, please click on the following link:<a href="{confirm_url}">Confirm shift</a><br/></p>
+    <p>To confirm your attendance for this event, please click on the following link: <a href="{confirm_url}">Confirm shift</a><br/></p>
     
     <p>If you are unable to attend, please click on the following link to decline: <a href="{reject_url}">Reject shift</a></p>
 
