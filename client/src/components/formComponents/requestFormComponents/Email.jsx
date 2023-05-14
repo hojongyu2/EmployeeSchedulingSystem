@@ -1,4 +1,4 @@
-import { FormControl, TextField, Typography } from "@mui/material"
+import { FormControl, TextField } from "@mui/material"
 
 export const Email = ({email, setEmail}) => {
 

@@ -1,4 +1,4 @@
-import { Box, TextField, Typography } from "@mui/material"
+import { Box, TextField } from "@mui/material"
 
 export const Name = ({name, setName}) => {
 
