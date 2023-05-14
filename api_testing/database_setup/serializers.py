@@ -178,6 +178,6 @@ class VolunteerSerializer(serializers.ModelSerializer):
                         shift_serializer = VolunteerShiftSerializer(data=shift_data)
                         if shift_serializer.is_valid(raise_exception=True):
                             volunteer_shift = shift_serializer.save()
-                            # send_confirmation_email(volunteer_shift)
+                            send_confirmation_email(volunteer_shift)
                             
         return volunteer
