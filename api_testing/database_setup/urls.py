@@ -6,5 +6,6 @@ urlpatterns = [
      path('event-activity/', EventActivityAPIView.as_view(), name='event-activity'),
      path('volunteer-shift/', VolunteerShiftsAPIview.as_view(), name='volunteer-shifts'),
      path('confirm-shift/<int:shift_id>/<str:confirmed_value>/', ConfirmShiftView.as_view(), name='confirm-shift'),
-     # connect if response = no, delete volunteer shift
+     # path('shift-confirmed/, insert view here, name=confirmed)
+     # path('shift-rejected/' insert view here, name=rejected)
 ]
