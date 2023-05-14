@@ -93,11 +93,11 @@ class ConfirmShiftView(APIView):
             shift = VolunteerShift.objects.get(pk=shift_id)
 
             if confirmed_value.lower() == 'yes':
-                shift.confirmed = 'yes'
+                shift.confirmed = True
                 shift.save()
                 # Turn into redirect response, thank you for confirming attendance!
             elif confirmed_value.lower() == 'no':
-                shift.confirmed = 'no'
+                shift.confirmed = False
                 shift.save()
                 # Turn into redirect response, thank you for your response!
             else:
