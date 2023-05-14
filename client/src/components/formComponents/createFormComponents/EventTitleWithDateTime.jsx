@@ -27,7 +27,7 @@ export const EventTitleWithDateTime = ({ dateOfEvent, setDateOfEvent, startTime,
   };
 
   return (
-    <Container sx={{ backgroundColor: 'white', borderRadius: '10px' }}>
+    <Container sx={{borderRadius: '10px' }}>
       <Box mt={2}>
         <InputLabel htmlFor="date-of-event">Date of Event</InputLabel>
         <FormControl fullWidth>

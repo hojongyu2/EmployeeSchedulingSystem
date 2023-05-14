@@ -71,7 +71,7 @@ export const SignUpPage = () => {
         >  
             <Form onSubmit={onSubmitForm}>
                 <Box sx={{
-                    backgroundColor: 'white', borderRadius: "10px",
+                    borderRadius: "10px",
                 }}
                 >
                     <Typography sx={{color:'red', textAlign:'center'}}>{errorMessage}</Typography>
@@ -91,7 +91,7 @@ export const SignUpPage = () => {
                 <Typography variant="subtitle2"></Typography>
                     <Button onClick={()=>{
                         navigate('/signin')
-                    }} sx={{ paddingTop: "50px", color: 'black'}}>ALREADY HAVE AN ACCOUNT?</Button>
+                    }} sx={{ paddingTop: "50px"}}>ALREADY HAVE AN ACCOUNT?</Button>
             </Form>
         </Container>
     )

@@ -46,10 +46,10 @@ export const Activities = ({ activities, setActivities }) => {
       };
     
     return (
-        <Container sx={{ backgroundColor: 'white', borderRadius: '10px' }}>
+        <Container sx={{borderRadius: '10px' }}>
             <FormControl component="fieldset">
-                <FormLabel component="legend" sx={{ '&.Mui-focused': { color: 'black', }, pt: 2, }}>
-                    <Typography sx={{ color: 'black' }}>
+                <FormLabel component="legend" sx={{ '&.Mui-focused': {}, pt: 2, }}>
+                    <Typography sx={{}}>
                         What future volunteer activities are you interested in?
                     </Typography>
                 </FormLabel>

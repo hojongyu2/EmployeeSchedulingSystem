@@ -1,13 +1,10 @@
 import React from 'react';
 import {
     Checkbox,
-    Container,
     FormControl,
     FormControlLabel,
     FormGroup,
     FormLabel,
-    TextField,
-    Typography,
 } from '@mui/material';
 
 export const VolunteerWishList = ({activities, setActivities}) => {
@@ -18,21 +15,13 @@ export const VolunteerWishList = ({activities, setActivities}) => {
     };
 
     return (
-        <Container sx={{ backgroundColor: 'white', borderRadius: "10px" }}>
-
+        <>
             <FormControl component="fieldset">
-                <FormLabel component="legend" sx={{
-                    '&.Mui-focused': {
-                        color: 'black',
-                    },
-                }} >
-                    <Typography sx={{ color:"black" }} >What future volunteer activities are you interested in?</Typography>
-                    <Typography sx={{ color:"black" }}>
-                        For the clinics, your volunteering with be medical such as blood draws and vitals.
-                    </Typography>
-                    <Typography sx={{ color:"black" }}>Not doing H&P's</Typography>
+                <FormLabel component="legend" >
+                    <p>What future volunteer activities are you interested in?</p>
+                    <p>For the clinics, your volunteering with be medical such as blood draws and vitals.</p>
+                    <p>Not doing H&P's</p>
                 </FormLabel>
-
                 <FormGroup>
                     <FormControlLabel
                         control={<Checkbox checked={activities.bloodDrives} onChange={handleChange} name="bloodDrives" />}
@@ -65,7 +54,7 @@ export const VolunteerWishList = ({activities, setActivities}) => {
                 </FormGroup>
 
             </FormControl>
-        </Container>
+        </>
     );
 };
 

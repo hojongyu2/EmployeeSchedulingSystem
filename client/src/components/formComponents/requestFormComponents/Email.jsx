@@ -1,4 +1,4 @@
-import { Box, TextField, Typography } from "@mui/material"
+import { FormControl, TextField, Typography } from "@mui/material"
 
 export const Email = ({email, setEmail}) => {
 
@@ -7,15 +7,12 @@ export const Email = ({email, setEmail}) => {
     }
 
     return (
-        <Box sx={{ backgroundColor: 'white', borderRadius: "10px" }}>
-            <Box display={"flex"} flexDirection={"column"} justifyContent={"center"}>
-                <Box display={"flex"} flexDirection={"row"} pl={1.5}>
-                    <Typography>Email</Typography>
-                    <Typography sx={{ color: 'red' }}>*</Typography>
-                </Box>
-                <TextField value={email} onChange={onChangeEmail} type="email" label="Your Email" variant="outlined" sx={{ padding: "10px" }} required></TextField>
-            </Box>
-        </Box>
+        <>
+            <p>Email<span>*</span></p>
+            <FormControl fullWidth required>
+                <TextField value={email} onChange={onChangeEmail} type="email" label="Your Email" required></TextField>
+            </FormControl>
+        </>
 
     )
 }
