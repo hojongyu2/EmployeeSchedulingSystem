@@ -4,7 +4,6 @@ from rest_framework.permissions import IsAuthenticated
 from .serializers import VolunteerSerializer, EventSerializer, EventActivitySerializer, VolunteerShiftSerializer, GetEventActivitySerializer
 from rest_framework import status
 from .models import Activity, Event, VolunteerShift, EventActivity, Volunteer
-from django.http import HttpResponse
 # Create your views here.
 
 class VolunteerSignUpView(APIView):
@@ -95,13 +94,16 @@ class ConfirmShiftView(APIView):
 
             if confirmed_value.lower() == 'yes':
                 shift.confirmed = 'yes'
+                shift.save()
+                # Turn into redirect response, thank you for confirming attendance!
             elif confirmed_value.lower() == 'no':
                 shift.confirmed = 'no'
-                shift.delete()
+                shift.save()
+                # Turn into redirect response, thank you for your response!
             else:
                 return Response({'error': 'Invalid confirmed_value'}, status=status.HTTP_400_BAD_REQUEST)
                 
-            shift.save()
+            
             return Response({'detail': 'Shift confirmation updated successfully.'}, status=status.HTTP_200_OK)
 
         except VolunteerShift.DoesNotExist:
