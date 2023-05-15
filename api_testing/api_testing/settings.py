@@ -163,12 +163,12 @@ SIMPLE_JWT = {
 }
 
 CORS_ORIGIN_WHITELIST = [
-    'http://localhost:5173',
+    'http://localhost:5174',
 ]
 AUTH_USER_MODEL = 'authentication.CustomUser'
 
 BASE_URL = os.getenv('BASE_URL', 'http://localhost:8000')
-FRONTEND_URL = 'http://localhost:5173'
+FRONTEND_URL = 'http://localhost:5174'
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.sendgrid.net'

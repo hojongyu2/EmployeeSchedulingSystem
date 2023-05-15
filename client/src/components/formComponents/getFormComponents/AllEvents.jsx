@@ -50,7 +50,7 @@ export default function AllEvents({allEventData, setAllEventData, allActivityDat
             }
           }
     }
-
+    
     //get all the volunteer data related to one specific activity when column is clicked
     const onClickGetAllVolunteer = async (eventActivityID) => {
         try {
@@ -79,7 +79,7 @@ export default function AllEvents({allEventData, setAllEventData, allActivityDat
             }
           }
     }
-
+    console.log(allVolunteerData)
     return (
         <StyledTableContainer>
             <Table>
@@ -150,7 +150,7 @@ export default function AllEvents({allEventData, setAllEventData, allActivityDat
                                                                                             <StyledTableCell>{volunteer.volunteer}</StyledTableCell>
                                                                                             <StyledTableCell>{volunteer.start_time}</StyledTableCell>
                                                                                             <StyledTableCell>{volunteer.end_time}</StyledTableCell>
-                                                                                            <StyledTableCell>{volunteer.confirmed}</StyledTableCell>
+                                                                                            <StyledTableCell>{volunteer.confirmed.toString()}</StyledTableCell>
                                                                                         </TableRow>
                                                                                     ))}
                                                                                 </TableBody>
