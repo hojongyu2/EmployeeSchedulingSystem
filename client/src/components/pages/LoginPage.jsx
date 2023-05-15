@@ -5,7 +5,7 @@ import { userLogIn } from "../../utilities/userAuthAxios"
 import { userContext } from "../context/UserContext"
 
 
-export const LoginPage = () => {
+const LoginPage = () => {
     // MUI theme
     const theme = useTheme()
     const navigate = useNavigate()
@@ -72,3 +72,5 @@ export const LoginPage = () => {
         </Container>
     )
 }
+
+export default LoginPage;

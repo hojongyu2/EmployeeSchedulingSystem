@@ -12,7 +12,7 @@ import { sendOutVolunteerForm } from "../../utilities/eventAxios";
 import { Name } from "../formComponents/requestFormComponents/Name";
 
 
-export const RequestPage = () => {
+const RequestPage = () => {
     const theme = useTheme();
     const navigate = useNavigate();
 
@@ -125,3 +125,5 @@ export const RequestPage = () => {
         </Container>
     )
 }
+
+export default RequestPage;
