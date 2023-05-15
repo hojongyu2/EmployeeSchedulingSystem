@@ -103,12 +103,12 @@ class ConfirmShiftView(APIView):
                 reporting_instructions = shift.event_activity.event.reporting_instructions
                 send_reporting_instructions(shift, reporting_instructions)
                 
-                return redirect(f'{settings.FRONTEND_URL}#/confirmation/yes')
+                return redirect(f'{settings.FRONTEND_URL}/confirmation/yes')
             
             elif confirmed_value.lower() == 'no':
                 shift.confirmed = 'No'
                 shift.save()
-                return redirect(f'{settings.FRONTEND_URL}#/confirmation/no')
+                return redirect(f'{settings.FRONTEND_URL}/confirmation/no')
             
             else:
                 return Response({'error': 'Invalid confirmed_value'}, status=status.HTTP_400_BAD_REQUEST)
