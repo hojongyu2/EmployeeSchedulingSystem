@@ -96,7 +96,7 @@ class ConfirmShiftView(APIView):
             shift = VolunteerShift.objects.get(pk=shift_id)
             # Get event activity, get event, get reporting instructions
             if confirmed_value.lower() == 'yes':
-                shift.confirmed = True
+                shift.confirmed = 'Yes'
                 shift.save()
                 
                 # Get the reporting instructions from the related event
@@ -106,7 +106,7 @@ class ConfirmShiftView(APIView):
                 return redirect(f'{settings.FRONTEND_URL}#/confirmation/yes')
             
             elif confirmed_value.lower() == 'no':
-                shift.confirmed = False
+                shift.confirmed = 'No'
                 shift.save()
                 return redirect(f'{settings.FRONTEND_URL}#/confirmation/no')
             
