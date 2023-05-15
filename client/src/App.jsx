@@ -9,6 +9,7 @@ import UserContextProvider from './components/context/UserContext';
 import CreateEventPage from './components/pages/CreateEventPage';
 import RequestPage from './components/pages/RequestPage';
 import ResponsiveAppBar from './components/layout/Header';
+import ConfirmationPage from './components/pages/ConfirmationPage';
 
 function App() {
   const [themeLight, setThemeLight] = useState(true);
@@ -28,7 +29,7 @@ function App() {
             <Route path="/signup" element={<SignUpPage />} />
             <Route path="/create-event" element={<CreateEventPage />} />
             <Route path="/request" element={<RequestPage />} />
-            <Route path="*" element={<ListOfEventsAndHomePage />} />
+            <Route path="/confirmation/:response" element={<ConfirmationPage />} />
           </Routes>
         </Router>
       </UserContextProvider>

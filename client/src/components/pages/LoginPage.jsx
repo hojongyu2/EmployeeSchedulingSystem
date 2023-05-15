@@ -1,6 +1,6 @@
 import { Box, Button, Container, Link, TextField, Typography, useTheme } from "@mui/material"
 import { useState, useContext } from "react"
-import { Form, useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 import { userLogIn } from "../../utilities/userAuthAxios"
 import { userContext } from "../context/UserContext"
 
@@ -48,7 +48,7 @@ const LoginPage = () => {
             borderRadius: "10px",
         }}
         >
-            <Form onSubmit={onSubmitForm}>
+            <form onSubmit={onSubmitForm}>
                 <Box sx={{
                     borderRadius: "10px",
                 }}
@@ -68,7 +68,7 @@ const LoginPage = () => {
                         {/* </Link> */}
                     </Box>
                 </Box>
-            </Form>
+            </form>
         </Container>
     )
 }
