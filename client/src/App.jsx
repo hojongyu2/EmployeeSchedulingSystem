@@ -11,33 +11,12 @@ import RequestPage from './components/pages/RequestPage';
 import ResponsiveAppBar from './components/layout/Header';
 
 function App() {
-  const router = createHashRouter([
-    {
-      element: <Layout />,
-      children: [
-        {
-          path: '/',
-          element: <ListOfEventsAndHomePage />
-        },
-        {
-          path: '/signup',
-          element: <SignUpPage />
-        },
-        {
-          path: '/login',
-          element: <LoginPage />
-        },
-        {
-          path: '/create-event',
-          element: <CreateEventPage />
-        },
-        {
-          path: '/request',
-          element: <RequestPage />
-        },
-      ]
-    },
-  ])
+  const [themeLight, setThemeLight] = useState(true);
+
+  const handleThemeChange = () => {
+    setThemeLight((prevTheme) => !prevTheme);
+  };
+
   return (
     <CustomThemeProvider themeLight={themeLight}>
       <UserContextProvider>
