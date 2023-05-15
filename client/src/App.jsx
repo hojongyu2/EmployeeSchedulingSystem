@@ -24,12 +24,13 @@ function App() {
         <Router>
           <ResponsiveAppBar themeLight={themeLight} handleThemeChange={handleThemeChange} />
           <Routes>
-            <Route path="/" element={<Layout />} />
+            <Route path="/" element={<ListOfEventsAndHomePage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/signup" element={<SignUpPage />} />
             <Route path="/create-event" element={<CreateEventPage />} />
             <Route path="/request" element={<RequestPage />} />
             <Route path="/confirmation/:response" element={<ConfirmationPage />} />
+            <Route path="*" element={<ListOfEventsAndHomePage />} />
           </Routes>
         </Router>
       </UserContextProvider>
