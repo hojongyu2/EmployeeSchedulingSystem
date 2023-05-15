@@ -1,186 +1,214 @@
 import * as React from 'react';
-import { userSignOut } from '../../utilities/userAuthAxios';
-import { useNavigate } from 'react-router';
-import { Button, Link } from '@mui/material';
+import { Link } from 'react-router-dom';
 import { useContext } from 'react';
-import { userContext } from '../context/UserContext';
-//MUI
+import { userContext } from '../context/userContext';
+
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
-import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
-import AccountCircle from '@mui/icons-material/AccountCircle';
-import MoreIcon from '@mui/icons-material/MoreVert';
+import MenuIcon from '@mui/icons-material/Menu';
+import Container from '@mui/material/Container';
+import Avatar from '@mui/material/Avatar';
+import Button from '@mui/material/Button';
+import Tooltip from '@mui/material/Tooltip';
+import MenuItem from '@mui/material/MenuItem';
+import AdbIcon from '@mui/icons-material/Adb';
+import Icon from '@mui/material/Icon';
+import ListItemIcon from '@mui/material/ListItemIcon';
 
+const pageUrls = {
+  'Create Event': '/create-event',
+  'Volunteer Signup': '/request'
+};
 
+const profileDropdown = {
+  'Log In': () => {
+    // Function call for Profile
+    console.log('login function called');
+  },
+  'Profile': () => {
+    // Function call for Account
+    console.log('profile function called');
+  },
+  'Log Out': () => {
+    // Function call for Dashboard
+    console.log('logout function called');
+  }
+};
 
-export default function Header() {
-  const {user, setUser} = useContext(userContext)
-  
+function ResponsiveAppBar() {
+  const { user, setUser } = useContext(userContext)
 
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
-  const navigate = useNavigate()
-  const isMenuOpen = Boolean(anchorEl);
-  const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+  const [anchorElNav, setAnchorElNav] = React.useState(null);
+  const [anchorElUser, setAnchorElUser] = React.useState(null);
 
-  const handleProfileMenuOpen = (event) => {
-    setAnchorEl(event.currentTarget);
+  const handleOpenNavMenu = (event) => {
+    setAnchorElNav(event.currentTarget);
+  };
+  const handleOpenUserMenu = (event) => {
+    setAnchorElUser(event.currentTarget);
   };
 
-  const handleMobileMenuClose = () => {
-    setMobileMoreAnchorEl(null);
+  const handleCloseNavMenu = () => {
+    setAnchorElNav(null);
   };
 
-  const handleMenuClose = () => {
-    setAnchorEl(null);
-    handleMobileMenuClose();
+  const handleCloseUserMenu = () => {
+    setAnchorElUser(null);
   };
-
-  const handleMenuCloseAndLogIn = () => {
-    setAnchorEl(null);
-    handleMobileMenuClose();
-    navigate('/login')
-  };
-
-  const handleMenuCloseAndLogout = async () => {
-    setAnchorEl(null);
-    handleMobileMenuClose();
-    const response = await userSignOut()
-    if (response.detail === 'Logged out successfully') {
-      // remove a key named currentUser when logout function is properly activated
-      localStorage.clear();
-      setUser('')
-      navigate('/')
-    }
-
-  };
-
-  const handleMobileMenuOpen = (event) => {
-    setMobileMoreAnchorEl(event.currentTarget);
-  };
-
-  const menuId = 'primary-search-account-menu';
-  const renderMenu = (
-    <Menu
-      anchorEl={anchorEl}
-      anchorOrigin={{
-        vertical: 'top',
-        horizontal: 'right',
-      }}
-      id={menuId}
-      keepMounted
-      transformOrigin={{
-        vertical: 'top',
-        horizontal: 'right',
-      }}
-      open={isMenuOpen}
-      onClose={handleMenuClose}
-    >
-      {!user && <MenuItem onClick={handleMenuCloseAndLogIn}>Log In</MenuItem>}
-      {user && <MenuItem onClick={handleMenuClose}>Profile</MenuItem>}
-      {user && <MenuItem onClick={handleMenuCloseAndLogout}>Logout</MenuItem>}
-    </Menu>
-  );
-
-  const mobileMenuId = 'primary-search-account-menu-mobile';
-  const renderMobileMenu = (
-    <Menu
-      anchorEl={mobileMoreAnchorEl}
-      anchorOrigin={{
-        vertical: 'top',
-        horizontal: 'right',
-      }}
-      id={mobileMenuId}
-      keepMounted
-      transformOrigin={{
-        vertical: 'top',
-        horizontal: 'right',
-      }}
-      open={isMobileMenuOpen}
-      onClose={handleMobileMenuClose}
-    >
-      <MenuItem>
-        <Button sx={{color:'black'}}>Form</Button>
-      </MenuItem>
-      <MenuItem>
-        <Button sx={{color:'black'}}>Crurrent Event List</Button>
-      </MenuItem>
-      <MenuItem>
-        <Button sx={{color:'black'}}>Students List</Button>
-      </MenuItem>
-      <MenuItem onClick={handleProfileMenuOpen}>
-        <IconButton
-          size="large"
-          aria-label="account of current user"
-          aria-controls="primary-search-account-menu"
-          aria-haspopup="true"
-          color="inherit"
-        >
-          <AccountCircle />
-        </IconButton>
-        <p>Profile</p>
-      </MenuItem>
-    </Menu>
-  );
 
   return (
-    <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static">
-        <Toolbar>
-          <Link href='/'>
-            <Typography
-              variant="h6"
-              noWrap
-              component="div"
-              sx={{ display: { sm: 'block' }, color:'black' }}
-            >
-              MUI
-            </Typography>
-          </Link>
-          <Box sx={{ display: { xs: 'none', sm: 'block' }}}>
-            <Link href='/#/form'>
-              <Button sx={{color:'black'}}>Form</Button>
-            </Link>
-            <Link href='/#/formLists'>
-              <Button sx={{color:'black'}}>Crurrent Event List</Button>
-            </Link>
-            <Button sx={{color:'black'}}>Students List</Button>
-          </Box>
-          <Box sx={{ flexGrow: 1 }} />
-          <Typography sx={{color:'black'}}>{user && user.first_name}</Typography>
-          <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+    <AppBar position="static">
+      <Container maxWidth="xl">
+        <Toolbar disableGutters>
+          <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
+          <Typography
+            variant="h6"
+            noWrap
+            component="a"
+            href="/"
+            sx={{
+              mr: 2,
+              display: { xs: 'none', md: 'flex' },
+              fontFamily: 'monospace',
+              fontWeight: 700,
+              letterSpacing: '.3rem',
+              color: 'inherit',
+              textDecoration: 'none',
+            }}
+          >
+            SHIFT
+          </Typography>
+
+          <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <IconButton
               size="large"
-              edge="end"
               aria-label="account of current user"
-              aria-controls={menuId}
+              aria-controls="menu-appbar"
               aria-haspopup="true"
-              onClick={handleProfileMenuOpen}
+              onClick={handleOpenNavMenu}
               color="inherit"
             >
-              <AccountCircle />
+              <MenuIcon />
             </IconButton>
+            <Menu
+              id="menu-appbar"
+              anchorEl={anchorElNav}
+              anchorOrigin={{
+                vertical: 'bottom',
+                horizontal: 'left',
+              }}
+              keepMounted
+              transformOrigin={{
+                vertical: 'top',
+                horizontal: 'left',
+              }}
+              open={Boolean(anchorElNav)}
+              onClose={handleCloseNavMenu}
+              sx={{
+                display: { xs: 'block', md: 'none' },
+              }}
+            >
+              {Object.keys(pageUrls).map((page, url) => (
+                <MenuItem key={page} component={Link} to={url}>
+                  <ListItemIcon>
+                    <Icon>people</Icon>
+                  </ListItemIcon>
+                  {page}
+                </MenuItem>
+              ))}
+            </Menu>
           </Box>
-          <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
-            <IconButton
-              size="large"
-              aria-label="show more"
-              aria-controls={mobileMenuId}
-              aria-haspopup="true"
-              onClick={handleMobileMenuOpen}
-              color="inherit"
+          <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
+          <Typography
+            variant="h5"
+            noWrap
+            component="a"
+            href=""
+            sx={{
+              mr: 2,
+              display: { xs: 'flex', md: 'none' },
+              flexGrow: 1,
+              fontFamily: 'monospace',
+              fontWeight: 700,
+              letterSpacing: '.3rem',
+              color: 'inherit',
+              textDecoration: 'none',
+            }}
+          >
+            SHIFT
+          </Typography>
+          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+            {Object.keys(pageUrls).map((page, i) => {
+              if (page !== 'Create Event') {
+                <Button
+                  key={page}
+                  sx={{ my: 2, display: 'block' }}
+                >
+                  <Link to={pageUrls[page]}>
+                    {page}
+                  </Link>
+                </Button>
+              } else if (user) {
+                <Button
+                  key={page}
+                  sx={{ my: 2, display: 'block' }}
+                >
+                  <Link to={pageUrls[page]}>
+                    {page}
+                  </Link>
+                </Button>
+              }
+            })}
+            
+          </Box>
+
+          <Box sx={{ flexGrow: 0 }}>
+            <Tooltip title="Open settings">
+              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+              </IconButton>
+            </Tooltip>
+            <Menu
+              sx={{ mt: '45px' }}
+              id="menu-appbar"
+              anchorEl={anchorElUser}
+              anchorOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+              }}
+              keepMounted
+              transformOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+              }}
+              open={Boolean(anchorElUser)}
+              onClose={handleCloseUserMenu}
             >
-              <MoreIcon />
-            </IconButton>
+              {Object.keys(profileDropdown).map((name, index) => {
+                if (user && name !== 'Log In') {
+                  return (
+                    <MenuItem key={name} onClick={profileDropdown[name]}>
+                      <Typography textAlign="center">{name}</Typography>
+                    </MenuItem>
+                  );
+                }
+                else if (name === 'Log In') {
+                  return (
+                    <MenuItem key={name} onClick={profileDropdown[name]}>
+                      <Typography textAlign="center">{name}</Typography>
+                    </MenuItem>
+                  );
+                }
+              })}
+            </Menu>
           </Box>
         </Toolbar>
-      </AppBar>
-      {renderMobileMenu}
-      {renderMenu}
-    </Box>
+      </Container>
+    </AppBar>
   );
 }
+export default ResponsiveAppBar;

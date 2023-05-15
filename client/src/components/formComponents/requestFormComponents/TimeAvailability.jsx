@@ -24,13 +24,13 @@ export const TimeAvailability = ({selectedTimes, setSelectedTimes}) => {
 
   const handleTimeChange = (day, newTimes) => {
     setSelectedTimes({ ...selectedTimes, [day]: newTimes });
-    console.log(selectedTimes)
+    // console.log(selectedTimes)
   };
 
   const handleNAChange = (day, isChecked) => {
     setDisabledDays({ ...disabledDays, [day]: isChecked });
     setSelectedTimes({ ...selectedTimes, [day]: isChecked ? false : [0, 24] });
-    console.log(selectedTimes)
+    // console.log(selectedTimes)
   };
 
   const formatHours = (value) => {
@@ -40,23 +40,20 @@ export const TimeAvailability = ({selectedTimes, setSelectedTimes}) => {
   };
 
   return (
-    <Container sx={{ backgroundColor: 'white', borderRadius: "10px" }}>
-        <Box display={"flex"} flexDirection={"row"}>
-            <Typography sx={{ color:"black" }}>What times are you available?</Typography>
-            <Typography sx={{ color: 'red' }}>*</Typography>
-        </Box>
+    <>
+      <p>What times are you available?<span>*</span></p>
       {days.map((day) => (
         <Box display={"flex"} flexDirection={"row"} justifyContent={"center"} alignItems={"center"} gap={3} key={day} sx={{ my: 2 }}>
           <Typography>{day}</Typography>
           <Slider
-            value={selectedTimes[day] || [0, 24]}
+            value={selectedTimes[day] || [0, 23.59]}
             onChange={(_, newTimes) => handleTimeChange(day, newTimes)}
             valueLabelDisplay="auto"
             valueLabelFormat={formatHours}
             marks={marks}
             step={1}
             min={0}
-            max={24}
+            max={23.59}
             disabled={disabledDays[day]}
           />
           <FormControlLabel
@@ -70,6 +67,6 @@ export const TimeAvailability = ({selectedTimes, setSelectedTimes}) => {
           />
         </Box>
       ))}
-    </Container>
+    </>
   );
 }

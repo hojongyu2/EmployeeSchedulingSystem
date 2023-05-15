@@ -50,7 +50,7 @@ export const LoginPage = () => {
         >
             <Form onSubmit={onSubmitForm}>
                 <Box sx={{
-                    backgroundColor:'white', borderRadius: "10px",
+                    borderRadius: "10px",
                 }}
                 >
                     <Typography sx={{color:'red', textAlign:'center'}}>{errorMessage}</Typography>

@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'corsheaders',
     'authentication',
+    'database_setup',
 ]
 
 MIDDLEWARE = [
@@ -114,7 +115,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'America/Chicago'
 
 USE_I18N = True
 
@@ -138,8 +139,8 @@ REST_FRAMEWORK = {
 }
 
 SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=60),
-    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=10),
+    'REFRESH_TOKEN_LIFETIME': timedelta(hours=2),
     'ROTATE_REFRESH_TOKENS': False,
     'BLACKLIST_AFTER_ROTATION': True,
 
@@ -162,6 +163,16 @@ SIMPLE_JWT = {
 }
 
 CORS_ORIGIN_WHITELIST = [
-    'http://localhost:5173',
+    'http://localhost:5174',
 ]
 AUTH_USER_MODEL = 'authentication.CustomUser'
+
+BASE_URL = os.getenv('BASE_URL', 'http://localhost:8000')
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.sendgrid.net'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'apikey' # this is literally "apikey"
+EMAIL_HOST_PASSWORD = os.environ.get('SENDGRID_API_KEY')
+DEFAULT_FROM_EMAIL = 'joshua.parina@gmail.com'
