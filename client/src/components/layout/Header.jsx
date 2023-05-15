@@ -195,9 +195,29 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
+import Icon from '@mui/material/Icon';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import { Link } from 'react-router-dom';
 
-const pages = ['Products', 'Pricing', 'Blog'];
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+const pageUrls = {
+  'Create Event': '/create-event',
+  'Send Request': '/request'
+};
+
+const profileDropdown = {
+  'Log In': () => {
+    // Function call for Profile
+    console.log('login function called');
+  },
+  'Profile': () => {
+    // Function call for Account
+    console.log('profile function called');
+  },
+  'Log Out': () => {
+    // Function call for Dashboard
+    console.log('logout function called');
+  }
+};
 
 function ResponsiveAppBar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -238,7 +258,7 @@ function ResponsiveAppBar() {
               textDecoration: 'none',
             }}
           >
-            LOGO
+            SHIFT
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
@@ -270,9 +290,12 @@ function ResponsiveAppBar() {
                 display: { xs: 'block', md: 'none' },
               }}
             >
-              {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
+              {Object.keys(pageUrls).map((page, url) => (
+                <MenuItem key={page} component={Link} to={url}>
+                  <ListItemIcon>
+                    <Icon>people</Icon>
+                  </ListItemIcon>
+                  {page}
                 </MenuItem>
               ))}
             </Menu>
@@ -294,18 +317,20 @@ function ResponsiveAppBar() {
               textDecoration: 'none',
             }}
           >
-            LOGO
+            SHIFT
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            {pages.map((page) => (
+            {Object.keys(pageUrls).map((page, url) => (
               <Button
                 key={page}
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: 'white', display: 'block' }}
+                sx={{ my: 2, display: 'block' }}
               >
-                {page}
+                <Link to={pageUrls[page]}>
+                  {page}
+                </Link>
               </Button>
             ))}
+            
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>
@@ -330,9 +355,9 @@ function ResponsiveAppBar() {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
+              {Object.keys(profileDropdown).map((name, action) => (
+                <MenuItem key={name} onClick={action}>
+                  <Typography textAlign="center">{name}</Typography>
                 </MenuItem>
               ))}
             </Menu>
