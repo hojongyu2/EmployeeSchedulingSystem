@@ -1,5 +1,5 @@
-import { useState, useContext } from "react"
-import { Form, useNavigate } from 'react-router-dom';
+import { useState } from "react"
+import { useNavigate } from 'react-router-dom';
 import { Year }from "../formComponents/requestFormComponents/Year";
 import { Email } from "../formComponents/requestFormComponents/Email";
 import { VolunteerWishList } from "../formComponents/requestFormComponents/VolunteerWishList";
@@ -7,13 +7,12 @@ import { ChicagoOrSinai } from "../formComponents/requestFormComponents/ChicagoO
 import { TimeAvailability } from "../formComponents/requestFormComponents/TimeAvailability";
 
 //MUI
-import { Box, Button, Container, Switch, Typography, useTheme } from "@mui/material"
+import { Box, Button, Container, useTheme } from "@mui/material"
 import { sendOutVolunteerForm } from "../../utilities/eventAxios";
 import { Name } from "../formComponents/requestFormComponents/Name";
 
 
 const RequestPage = () => {
-    const theme = useTheme();
     const navigate = useNavigate();
 
     const [checked, setChecked] = useState(false);
