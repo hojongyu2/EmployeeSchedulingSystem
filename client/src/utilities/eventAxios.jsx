@@ -7,39 +7,69 @@ const axiosInstance = createAxiosInstance()
 
 export const getAllExistEvents = async () => {
     try {
-        const response = await axiosInstance.get(`${baseURL}data/event/`)
-        // console.log(response)
-        return response.data
-    }catch (e) {
-        console.log('Error while fetching event data :' + e)
+        const response = await axiosInstance.get(`${baseURL}data/event/`);
+        return response.data;
+    } catch (error) {
+        if (error.response && error.response.status === 401) {
+            // Handle token expiration error that throw error. This allows the caller to handle the token expiration error
+            console.log('Token has expired.');
+            throw error;
+        } else {
+            // Handle other errors
+            console.log('Error while fetching event data: ', error);
+            throw error;
+        }
     }
-}
+};
 
 export const getAllExistActivities = async (data) => {
     try {
         const response = await axiosInstance.post(`${baseURL}data/event-activity/`, data)
-        // console.log(response.data)
         return response.data
-    }catch (e) {
-        console.log('Error while fetching event activity data :' + e)
+    }catch (error) {
+        if (error.response && error.response.status === 401) {
+            // Handle token expiration error
+            console.log('Token has expired.');
+            throw error;
+        } else {
+            // Handle other errors
+            console.log('Error while fetching event activity data :' + error)
+            throw error;
+        }
     }
 }
-// getAllExistActivities({eventID:15})
+
 export const getAllVolunteers = async (data) => {
     try {
         const response = await axiosInstance.post(`${baseURL}data/volunteer-shift/`, data)
         return response.data
-    }catch (e) {
-        console.log('Error while fetching event volunteer data :' + e)
+    }catch (error) {
+        if (error.response && error.response.status === 401) {
+            // Handle token expiration error
+            console.log('Token has expired.');
+            throw error;
+        } else {
+            // Handle other errors
+            console.log('Error while fetching event volunteer data :' + error)
+            throw error;
+        }
     }
 }
-// getAllVolunteers({eventActivityID: 1})
+
 export const createEvent = async (data) => {
     try {
         const response = await axiosInstance.post(`${baseURL}data/event/`, data)
         return response
-    }catch (e) {
-        console.log('Error while fetching event data :' + e)
+    }catch (error) {
+        if (error.response && error.response.status === 401) {
+            // Handle token expiration error
+            console.log('Token has expired.');
+            throw error;
+        } else {
+            // Handle other errors
+            console.log('Error while fetching event volunteer data :' + error)
+            throw error;
+        }
     }
 }
 
@@ -47,7 +77,7 @@ export const sendOutVolunteerForm = async (data) => {
     try {
         const response = await axios.post(`${baseURL}data/volunteer-signup/`, data)
         return response.data
-    } catch (e) {
-        console.log('Error while fetching event data :' + e)
+    } catch (error) {
+        console.log('Error while fetching event data :' + error)
     }
 }

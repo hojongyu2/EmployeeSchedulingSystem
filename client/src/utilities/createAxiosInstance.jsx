@@ -20,7 +20,7 @@ async function refreshToken() {
   }
 }
 
-function createAxiosInstance() {
+export default function createAxiosInstance() {
   const baseURL = import.meta.env.VITE_REACT_APP_AXIOS
 
   const accessToken = localStorage.getItem("access_token");
@@ -38,15 +38,16 @@ function createAxiosInstance() {
     (response) => response,
     async (error) => {
       const originalRequest = error.config;
-
       if (error.response.status === 401 && !originalRequest._retry) {
-        originalRequest._retry = true;
-        const { success, access } = await refreshToken();
 
-        if (success) {
+        originalRequest._retry = true;
+        try {
+          const { success, access } = await refreshToken();
           axiosInstance.defaults.headers.common["Authorization"] = `Bearer ${access}`;
           originalRequest.headers["Authorization"] = `Bearer ${access}`;
           return axiosInstance(originalRequest);
+        } catch (refreshError) {
+          localStorage.clear();
         }
       }
 
@@ -57,4 +58,3 @@ function createAxiosInstance() {
   return axiosInstance;
 }
 
-export default createAxiosInstance;

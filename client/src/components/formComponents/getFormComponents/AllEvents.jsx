@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { getAllExistActivities, getAllVolunteers } from '../../../utilities/eventAxios';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Collapse, Box } from '@mui/material';
 import { styled } from '@mui/system';
+import { userContext } from '../../context/UserContext';
 
 
 const StyledTableContainer = styled(TableContainer)({
@@ -19,18 +20,64 @@ const StyledTableCell = styled(TableCell)({
 export default function AllEvents({allEventData, setAllEventData, allActivityData, setAllActivityData, allVolunteerData, setAllvolunteerData}) {
     const [openEventId, setOpenEventId] = useState(null);
     const [openActivityId, setOpenActivityId] = useState(null);
+    const {user, setUser} = useContext(userContext)
 
     //get all the activitity data related to one specific event when column is clicked
     const onClickGetAllActivities = async (eventId) => {
-        const response = await getAllExistActivities({eventID:eventId})
-        // console.log(response)
-        setAllActivityData(response)
+          try {
+            // Check if user information is in localStorage
+            const isUserInLocalStorage = localStorage.getItem('currentUser');
+            if (isUserInLocalStorage) {
+               const response = await getAllExistActivities({eventID:eventId})
+              if (response) {
+                setAllActivityData(response)
+              }
+            } else {
+                // If use does not exist, then clear the user state variable and localStorage, then navigate to home page
+                setUser(null)
+                localStorage.clear();
+                navigate('/');
+            }
+          } catch (error) {
+            // If the token is expired (status 401), clear the localStorage and navigate to the login page
+            if (error.response && error.response.status === 401) {
+                setUser(null)
+                localStorage.clear();
+                navigate('/login');
+            } else {
+                // Handle other errors
+                console.error(error);
+            }
+          }
     }
+
     //get all the volunteer data related to one specific activity when column is clicked
     const onClickGetAllVolunteer = async (eventActivityID) => {
-        const response = await getAllVolunteers({eventActivityID: eventActivityID})
-        // console.log(response)
-        setAllvolunteerData(response)
+        try {
+            // Check if user information is in localStorage, then 
+            const isUserInLocalStorage = localStorage.getItem('currentUser');
+            if (isUserInLocalStorage) {
+                const response = await getAllVolunteers({eventActivityID: eventActivityID})
+              if (response) {
+                setAllvolunteerData(response)
+              }
+            } else {
+                // If use does not exist, then clear the user state variable and localStorage, then navigate to home page
+                setUser(null)
+                localStorage.clear();
+                navigate('/');
+            }
+          } catch (error) {
+            // If the token is expired (status 401), clear the localStorage and navigate to the login page
+            if (error.response && error.response.status === 401) {
+                setUser(null)
+                localStorage.clear();
+                navigate('/login');
+            } else {
+                // Handle other errors
+                console.error(error);
+            }
+          }
     }
 
     return (

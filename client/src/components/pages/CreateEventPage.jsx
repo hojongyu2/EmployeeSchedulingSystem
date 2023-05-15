@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useNavigate } from 'react-router';
 import { EventTitleWithDateTime } from "../formComponents/createFormComponents/EventTitleWithDateTime"
 import { Title } from "../formComponents/createFormComponents/Title";
@@ -7,8 +7,10 @@ import { Box, Button, Container } from "@mui/material"
 import { Activities } from "../formComponents/createFormComponents/Activities";
 import { VolunteerNumberForActivity } from "../formComponents/createFormComponents/VolunteerNumberForActivity";
 import { createEvent } from "../../utilities/eventAxios";
+import { userContext } from "../context/UserContext";
 
 export const CreateEventPage = () => {
+    const {user, setUser} = useContext(userContext)
     const [title, setTitle] = useState('');
     const [dateOfEvent, setDateOfEvent] = useState('');
     const [startTime, setStartTime] = useState('');
@@ -43,13 +45,26 @@ export const CreateEventPage = () => {
         if (filtered.length === 0){
             setError('You must select one of the option')
         }else {
-            const response = await createEvent(eventData)
-            if(response.data){
-                setError(true)
-                navigate('/')
+            try {
+                const isUserInLocalStorage = localStorage.getItem('currentUser');
+                if (isUserInLocalStorage) {
+                    const response = await createEvent(eventData)
+                    if(response.data){
+                        setError(true)
+                        navigate('/')
+                    }
+                }
+            } catch (error) {
+                if (error.response && error.response.status === 401) {
+                    setUser(null)
+                    localStorage.clear();
+                    navigate('/');
+                } else {
+                    // Handle other errors
+                    console.error(error);
+                }
             }
         }
-        
     }
 
     return (
