@@ -7,7 +7,7 @@ import { userContext } from "../context/UserContext";
 import { Box, Button, Container, Link, TextField, Typography, useTheme } from "@mui/material"
 
 
-export const SignUpPage = () => {
+const SignUpPage = () => {
     const theme = useTheme();
     const navigate = useNavigate();
     const [errorMessage, setErrorMessage]= useState('');
@@ -96,3 +96,5 @@ export const SignUpPage = () => {
         </Container>
     )
 }
+
+export default SignUpPage;

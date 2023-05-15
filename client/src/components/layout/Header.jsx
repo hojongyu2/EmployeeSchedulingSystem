@@ -1,7 +1,8 @@
 import * as React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { userContext } from '../context/userContext';
+import PropTypes from 'prop-types';
 
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -25,9 +26,10 @@ const pageUrls = {
   'Volunteer Signup': '/request'
 };
 
-function ResponsiveAppBar() {
+function ResponsiveAppBar(props) {
   const { user, setUser } = useContext(userContext);
   const navigate = useNavigate();
+  const { themeLight, handleThemeChange } = props;
 
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
@@ -125,6 +127,9 @@ function ResponsiveAppBar() {
                 display: { xs: 'block', md: 'none' },
               }}
             >
+              <MenuItem onClick={handleThemeChange}>
+                {themeLight ? 'Dark Mode' : 'Light Mode'}
+              </MenuItem>
               {Object.keys(pageUrls).map((page, url) => (
                 <MenuItem key={page} component={Link} to={url}>
                   <ListItemIcon>
@@ -156,7 +161,6 @@ function ResponsiveAppBar() {
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {Object.keys(pageUrls).map((page, i) => {
-              if (page !== 'Create Event') {
                 <Button
                   key={page}
                   sx={{ my: 2, display: 'block' }}
@@ -165,17 +169,7 @@ function ResponsiveAppBar() {
                     {page}
                   </Link>
                 </Button>
-              } else if (user) {
-                <Button
-                  key={page}
-                  sx={{ my: 2, display: 'block' }}
-                >
-                  <Link to={pageUrls[page]}>
-                    {page}
-                  </Link>
-                </Button>
-              }
-            })}
+              })}
             
           </Box>
 
@@ -224,4 +218,10 @@ function ResponsiveAppBar() {
     </AppBar>
   );
 }
+
+ResponsiveAppBar.propTypes = {
+  themeLight: PropTypes.bool.isRequired,
+  handleThemeChange: PropTypes.func.isRequired,
+};
+
 export default ResponsiveAppBar;
