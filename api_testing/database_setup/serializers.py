@@ -15,7 +15,7 @@ class AvailabilitySerializer(serializers.ModelSerializer):
 class VolunteerShiftSerializer(serializers.ModelSerializer):
     class Meta:
         model = VolunteerShift
-        fields = ['volunteer', 'event_activity', 'start_time', 'end_time']
+        fields = ['volunteer', 'event_activity', 'start_time', 'end_time', 'confirmed']
 
     def create(self, validated_data):
         return VolunteerShift.objects.create(**validated_data)
@@ -23,7 +23,7 @@ class VolunteerShiftSerializer(serializers.ModelSerializer):
 class EventSerializer(serializers.ModelSerializer):
     class Meta:
         model = Event
-        fields = ['name', 'date_of_event', 'start_time', 'end_time']
+        fields = ['name', 'date_of_event', 'start_time', 'end_time', 'reporting_instructions']
 
 class GetEventActivitySerializer(serializers.ModelSerializer):
     event = serializers.PrimaryKeyRelatedField(read_only=True)

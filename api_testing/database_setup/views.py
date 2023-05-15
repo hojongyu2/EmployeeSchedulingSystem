@@ -6,6 +6,7 @@ from rest_framework import status
 from .models import Activity, Event, VolunteerShift, EventActivity, Volunteer
 from django.shortcuts import redirect
 from django.conf import settings
+from .email_utils import send_reporting_instructions
 # Create your views here.
 
 class VolunteerSignUpView(APIView):
@@ -87,22 +88,28 @@ class VolunteerShiftsAPIview(APIView):
         for data in serializer.data:
             volunteer_id = data['volunteer']
             data['volunteer'] = Volunteer.objects.get(id=volunteer_id).name
-        
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 class ConfirmShiftView(APIView):
     def get(self, request, shift_id, confirmed_value, format=None):
         try:
             shift = VolunteerShift.objects.get(pk=shift_id)
-
+            # Get event activity, get event, get reporting instructions
             if confirmed_value.lower() == 'yes':
                 shift.confirmed = True
                 shift.save()
+                
+                # Get the reporting instructions from the related event
+                reporting_instructions = shift.event_activity.event.reporting_instructions
+                send_reporting_instructions(shift, reporting_instructions)
+                
                 return redirect(f'{settings.FRONTEND_URL}#/confirmation/yes')
+            
             elif confirmed_value.lower() == 'no':
                 shift.confirmed = False
                 shift.save()
                 return redirect(f'{settings.FRONTEND_URL}#/confirmation/no')
+            
             else:
                 return Response({'error': 'Invalid confirmed_value'}, status=status.HTTP_400_BAD_REQUEST)
 
