@@ -8,7 +8,6 @@ from .models import Activity, Event, VolunteerShift, EventActivity, Volunteer
 
 class VolunteerSignUpView(APIView):
     def post(self, request, format=None):
-        print(request.data)
         serializer = VolunteerSerializer(data=request.data)
         if serializer.is_valid():
             volunteer = serializer.save()
@@ -87,3 +86,25 @@ class VolunteerShiftsAPIview(APIView):
             data['volunteer'] = Volunteer.objects.get(id=volunteer_id).name
         
         return Response(serializer.data, status=status.HTTP_200_OK)
+
+class ConfirmShiftView(APIView):
+    def get(self, request, shift_id, confirmed_value, format=None):
+        try:
+            shift = VolunteerShift.objects.get(pk=shift_id)
+
+            if confirmed_value.lower() == 'yes':
+                shift.confirmed = True
+                shift.save()
+                # Turn into redirect response, thank you for confirming attendance!
+            elif confirmed_value.lower() == 'no':
+                shift.confirmed = False
+                shift.save()
+                # Turn into redirect response, thank you for your response!
+            else:
+                return Response({'error': 'Invalid confirmed_value'}, status=status.HTTP_400_BAD_REQUEST)
+                
+            
+            return Response({'detail': 'Shift confirmation updated successfully.'}, status=status.HTTP_200_OK)
+
+        except VolunteerShift.DoesNotExist:
+            return Response({'error': 'Shift not found'}, status=status.HTTP_404_NOT_FOUND)
