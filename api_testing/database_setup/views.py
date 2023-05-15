@@ -41,6 +41,7 @@ class EventAPIView(APIView):
         for activity_data in activities_data:
             activity_name = activity_data.get('activity')
             activity, _ = Activity.objects.get_or_create(name=activity_name)
+            # reporting instructions input here
             event_activity_data = {**activity_data, 'event': event.id, 'activity': activity.id}
             event_activity_serializer = EventActivitySerializer(data=event_activity_data)
             if event_activity_serializer.is_valid(raise_exception=True):
