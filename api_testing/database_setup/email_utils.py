@@ -11,7 +11,8 @@ def send_confirmation_email(volunteer_shift):
 
     I hope this email finds you well! Based on your submitted availability, we have an event that you might be interested in.
 
-    Event Details:
+    Event Details
+    
     Event Name: {volunteer_shift.event_activity.event.name}
     Date: {volunteer_shift.event_activity.event.date_of_event}
     Start Time: {volunteer_shift.start_time}
