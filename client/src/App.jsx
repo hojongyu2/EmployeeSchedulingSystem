@@ -7,7 +7,7 @@ import { ListOfEventsAndHomePage } from './components/pages/ListOfEventsAndHomeP
 import UserContextProvider from './components/context/UserContext'
 
 import { CreateEventPage } from './components/pages/CreateEventPage'
-import { RequestPage } from './components/pages/requestPage'
+import { RequestPage } from './components/pages/RequestPage'
 
 
 function App() {

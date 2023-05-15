@@ -22,7 +22,7 @@ export const ListOfEventsAndHomePage = () => {
         }
         fetchData()
     },[])
-
+    console.log(user)
     return (
 
         <Container>

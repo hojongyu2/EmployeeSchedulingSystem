@@ -21,9 +21,9 @@ export const VolunteerNumberForActivity = ({ onVolunteerNumberChange }) => {
     return (
         <Box sx={{display:'flex', flexDirection:'row', alignItems:'center'}}>
           <Typography>Number of volunteers needed:</Typography>
-            <Button onClick={handleOnClickMinus} sx={{color:'black'}}>-</Button>
+            <Button onClick={handleOnClickMinus} sx={{}}>-</Button>
             {volunteerNumber}
-            <Button onClick={handleOnClickPlus} sx={{color:'black'}}>+</Button>
+            <Button onClick={handleOnClickPlus} sx={{}}>+</Button>
         </Box>
     )
 }

@@ -49,7 +49,7 @@ export const Activities = ({ activities, setActivities, error, setError }) => {
 
 
     return (
-        <Container sx={{ backgroundColor: 'white', borderRadius: '10px' }}>
+        <Container sx={{borderRadius: '10px' }}>
             <FormControl component="fieldset">
                 <FormLabel component="legend" sx={{ '&.Mui-focused': { color: 'black', }, pt: 2, }}>
                     {error && <Typography variant='h6' sx={{color:'red'}}>{error}</Typography>}

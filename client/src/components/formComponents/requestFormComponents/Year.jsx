@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Container, FormControl, InputLabel, MenuItem, Select, TextField, Typography } from '@mui/material';
+import { FormControl, InputLabel, MenuItem, Select, TextField } from '@mui/material';
 
 export const Year = ({ year, setYear }) => {
   const [selectedValue, setSelectedValue] = useState(year || '');
@@ -24,12 +24,9 @@ export const Year = ({ year, setYear }) => {
   };
 
   return (
-    <Container sx={{ backgroundColor: 'white', borderRadius: '10px' }}>
-      <InputLabel component="legend" sx={{ '&.Mui-focused': { color: 'black' }, display: 'flex', flexDirection: 'row' }}>
-        <Typography sx={{ color: 'black' }}>Year</Typography>
-        <Typography sx={{ color: 'red' }}>*</Typography>
-      </InputLabel>
-      <FormControl fullWidth variant="outlined" sx={{ mt: '10px', mb: '10px' }} required>
+    <>
+      <p>Year<span>*</span></p>
+      <FormControl fullWidth required>
         <InputLabel htmlFor="duration">Select year</InputLabel>
         <Select
           value={selectedValue}
@@ -50,11 +47,9 @@ export const Year = ({ year, setYear }) => {
           label="Specify other year"
           value={customYear}
           onChange={handleOtherInputChange}
-          variant="outlined"
-          size="small"
           fullWidth
         />
       )}
-    </Container>
+    </>
   );
 };

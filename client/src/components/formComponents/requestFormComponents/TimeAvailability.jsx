@@ -40,11 +40,8 @@ export const TimeAvailability = ({selectedTimes, setSelectedTimes}) => {
   };
 
   return (
-    <Container sx={{ backgroundColor: 'white', borderRadius: "10px" }}>
-        <Box display={"flex"} flexDirection={"row"}>
-            <Typography sx={{ color:"black" }}>What times are you available?</Typography>
-            <Typography sx={{ color: 'red' }}>*</Typography>
-        </Box>
+    <>
+      <p>What times are you available?<span>*</span></p>
       {days.map((day) => (
         <Box display={"flex"} flexDirection={"row"} justifyContent={"center"} alignItems={"center"} gap={3} key={day} sx={{ my: 2 }}>
           <Typography>{day}</Typography>
@@ -70,6 +67,6 @@ export const TimeAvailability = ({selectedTimes, setSelectedTimes}) => {
           />
         </Box>
       ))}
-    </Container>
+    </>
   );
 }
