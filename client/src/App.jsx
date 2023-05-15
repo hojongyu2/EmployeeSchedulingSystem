@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import CustomThemeProvider from './CustomThemeProvider';
-import Layout from './components/layout/Layout';
 import LoginPage from './components/pages/LoginPage';
 import SignUpPage from './components/pages/SignUpPage';
 import ListOfEventsAndHomePage from './components/pages/ListOfEventsAndHomePage';

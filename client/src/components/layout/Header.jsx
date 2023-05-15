@@ -159,14 +159,29 @@ function ResponsiveAppBar(props) {
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {Object.keys(pageUrls).map((page, i) => {
-                <Button
-                  key={page}
-                  sx={{ my: 2, display: 'block' }}
-                >
-                  <Link to={pageUrls[page]}>
-                    {page}
-                  </Link>
-                </Button>
+              if (!user && page !== 'Create Event') {
+                return (
+                  <Button
+                    key={page}
+                    sx={{ my: 2, display: 'block' }}
+                  >
+                    <Link to={pageUrls[page]}>
+                      {page}
+                    </Link>
+                  </Button>
+                );
+              } else if (user) {
+                return (
+                  <Button
+                    key={page}
+                    sx={{ my: 2, display: 'block' }}
+                  >
+                    <Link to={pageUrls[page]}>
+                      {page}
+                    </Link>
+                  </Button>
+                );
+              }
             })}
             <MenuItem onClick={handleThemeChange}>
               {themeLight ? 'Dark Mode' : 'Light Mode'}
