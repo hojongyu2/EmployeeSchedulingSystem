@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useContext } from 'react';
 import { userContext } from '../context/userContext';
 
@@ -19,28 +19,15 @@ import AdbIcon from '@mui/icons-material/Adb';
 import Icon from '@mui/material/Icon';
 import ListItemIcon from '@mui/material/ListItemIcon';
 
+
 const pageUrls = {
   'Create Event': '/create-event',
   'Volunteer Signup': '/request'
 };
 
-const profileDropdown = {
-  'Log In': () => {
-    // Function call for Profile
-    console.log('login function called');
-  },
-  'Profile': () => {
-    // Function call for Account
-    console.log('profile function called');
-  },
-  'Log Out': () => {
-    // Function call for Dashboard
-    console.log('logout function called');
-  }
-};
-
 function ResponsiveAppBar() {
-  const { user, setUser } = useContext(userContext)
+  const { user, setUser } = useContext(userContext);
+  const navigate = useNavigate();
 
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
@@ -59,6 +46,32 @@ function ResponsiveAppBar() {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
+
+  const signout = async () => {
+    setAnchorElUser(null);
+    handleCloseUserMenu();
+    const response = await userSignOut()
+    if (response.detail === 'Logged out successfully') {
+      // remove a key named currentUser when logout function is properly activated
+
+    }
+  }
+  
+  const profileDropdown = {
+    'Login': () => {
+      navigate('/login')
+    },
+    'Logout': () => {
+      setAnchorElUser(null);
+      handleCloseUserMenu();
+      localStorage.clear();
+      setUser(null);
+      navigate('/');
+    }
+  };
+
+
+
 
   return (
     <AppBar position="static">
@@ -189,14 +202,14 @@ function ResponsiveAppBar() {
               onClose={handleCloseUserMenu}
             >
               {Object.keys(profileDropdown).map((name, index) => {
-                if (user && name !== 'Log In') {
+                if (user && name !== 'Login') {
                   return (
                     <MenuItem key={name} onClick={profileDropdown[name]}>
                       <Typography textAlign="center">{name}</Typography>
                     </MenuItem>
                   );
                 }
-                else if (name === 'Log In') {
+                else if (name === 'Login') {
                   return (
                     <MenuItem key={name} onClick={profileDropdown[name]}>
                       <Typography textAlign="center">{name}</Typography>
