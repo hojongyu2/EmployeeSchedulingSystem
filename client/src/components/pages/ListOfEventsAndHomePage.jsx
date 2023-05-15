@@ -5,6 +5,7 @@ import  AllEvents  from "../formComponents/getFormComponents/AllEvents"
 import { getAllExistEvents } from "../../utilities/eventAxios"
 import { Box, Container, Typography } from "@mui/material"
 import { useNavigate } from "react-router-dom";
+import ErrorAlertBar from "../snackbars/ErrorAlertBar"
 
 
 export const ListOfEventsAndHomePage = () => {
@@ -15,6 +16,9 @@ export const ListOfEventsAndHomePage = () => {
     const [allActivityData, setAllActivityData] = useState([])
     const [allVolunteerData, setAllvolunteerData] = useState([])
     const navigate = useNavigate()
+
+    // open/close state variable for snack alert bar
+    const [open, setOpen] = useState(false);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -28,16 +32,20 @@ export const ListOfEventsAndHomePage = () => {
               }
             } else {
                 // If use does not exist, then clear the user state variable and localStorage, then navigate to home page
-                setUser(null)
-                localStorage.clear();
-                navigate('/');
+                setOpen(true); // set open to true here
+                setTimeout(() => {
+                    localStorage.clear();
+                    setUser(null)
+                }, 2000);
             }
           } catch (error) {
             // If the token is expired (status 401), clear the localStorage and navigate to the login page
             if (error.response && error.response.status === 401) {
-                setUser(null)
-                localStorage.clear();
-                navigate('/');
+                setOpen(true); // and here
+                setTimeout(() => {
+                    localStorage.clear();
+                    setUser(null)
+                }, 2000);
             } else {
                 // Handle other errors
                 console.error(error);
@@ -52,6 +60,7 @@ export const ListOfEventsAndHomePage = () => {
         <Container>
             {user &&
                 <Box>
+                    <ErrorAlertBar open={open} setOpen={setOpen} />
                     <Typography>List of all events created</Typography>
                     <AllEvents allEventData={allEventData} setAllEventData={setAllEventData} allActivityData={allActivityData} setAllActivityData={setAllActivityData} allVolunteerData={allVolunteerData} setAllvolunteerData={setAllvolunteerData} />
                 </Box>

@@ -5,12 +5,11 @@ import { Title } from "../formComponents/createFormComponents/Title";
 //MUI
 import { Box, Button, Container } from "@mui/material"
 import { Activities } from "../formComponents/createFormComponents/Activities";
-import { VolunteerNumberForActivity } from "../formComponents/createFormComponents/VolunteerNumberForActivity";
 import { createEvent } from "../../utilities/eventAxios";
 import { userContext } from "../context/UserContext";
 
 export const CreateEventPage = () => {
-    const {user, setUser} = useContext(userContext)
+    const {setUser} = useContext(userContext)
     const [title, setTitle] = useState('');
     const [dateOfEvent, setDateOfEvent] = useState('');
     const [startTime, setStartTime] = useState('');
