@@ -141,6 +141,7 @@ export default function AllEvents({allEventData, setAllEventData, allActivityDat
                                                                                         <StyledTableCell>Name</StyledTableCell>
                                                                                         <StyledTableCell>Start Times</StyledTableCell>
                                                                                         <StyledTableCell>End Times</StyledTableCell>
+                                                                                        <StyledTableCell>Confirmation</StyledTableCell>
                                                                                     </TableRow>
                                                                                 </TableHead>
                                                                                 <TableBody>
@@ -149,6 +150,7 @@ export default function AllEvents({allEventData, setAllEventData, allActivityDat
                                                                                             <StyledTableCell>{volunteer.volunteer}</StyledTableCell>
                                                                                             <StyledTableCell>{volunteer.start_time}</StyledTableCell>
                                                                                             <StyledTableCell>{volunteer.end_time}</StyledTableCell>
+                                                                                            <StyledTableCell>{volunteer.confirmed}</StyledTableCell>
                                                                                         </TableRow>
                                                                                     ))}
                                                                                 </TableBody>
