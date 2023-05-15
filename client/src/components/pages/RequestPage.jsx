@@ -111,7 +111,7 @@ const RequestPage = () => {
             borderRadius: "10px",
         }}
         >  
-            <Form onSubmit={onSubmitForm}>
+            <form onSubmit={onSubmitForm}>
                 <Name name={name} setName={setName} />
                 <Email email={email} setEmail={setEmail} />
                 <Year year={year} setYear={setYear} />
@@ -121,7 +121,7 @@ const RequestPage = () => {
                 <Box>
                     <Button type="submit" variant='contained'>Submit</Button>
                 </Box>
-            </Form>
+            </form>
         </Container>
     )
 }
