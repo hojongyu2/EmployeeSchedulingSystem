@@ -112,17 +112,15 @@ export const RequestPage = () => {
         }}
         >  
             <Form onSubmit={onSubmitForm}>
-                <Container sx={{display:'flex', flexDirection:'column', gap:2}}>
-                    <Name name={name} setName={setName} />
-                    <Email email={email} setEmail={setEmail} />
-                    <Year year={year} setYear={setYear} />
-                    <ChicagoOrSinai duration={duration} setDuration={setDuration} />
-                    <TimeAvailability selectedTimes={selectedTimes} setSelectedTimes={setSelectedTimes} />
-                    <VolunteerWishList activities={activities} setActivities={setActivities} />
-                    <Box>
-                        <Button type="submit" variant='contained'>Submit</Button>
-                    </Box>
-                </Container>
+                <Name name={name} setName={setName} />
+                <Email email={email} setEmail={setEmail} />
+                <Year year={year} setYear={setYear} />
+                <ChicagoOrSinai duration={duration} setDuration={setDuration} />
+                <TimeAvailability selectedTimes={selectedTimes} setSelectedTimes={setSelectedTimes} />
+                <VolunteerWishList activities={activities} setActivities={setActivities} />
+                <Box>
+                    <Button type="submit" variant='contained'>Submit</Button>
+                </Box>
             </Form>
         </Container>
     )

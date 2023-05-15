@@ -24,13 +24,13 @@ export default function TimePickerForActivity({ onTimeChange, initialStartTime, 
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <Container>
         <TimePicker
-          label="Controlled picker"
+          label="Start time"
           value={start}
           onChange={handleStartTimeChange}
           required
         />
         <TimePicker
-          label="Controlled picker"
+          label="End time"
           value={end}
           onChange={handleEndTimeChange}
         />

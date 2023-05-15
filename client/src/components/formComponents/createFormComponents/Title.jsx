@@ -24,10 +24,10 @@ export const Title = ({ title, setTitle }) => {
   };
 
   return (
-    <Container sx={{ backgroundColor: 'white', borderRadius: '10px' }}>
-      <InputLabel component="legend" sx={{ '&.Mui-focused': { color: 'black' }, display: 'flex', flexDirection: 'row' }}>
-        <Typography sx={{ color: 'black' }}>Title</Typography>
-        <Typography sx={{ color: 'red' }}>*</Typography>
+    <Container sx={{borderRadius: '10px' }}>
+      <InputLabel component="legend" sx={{display: 'flex', flexDirection: 'row' }}>
+        <Typography sx={{}}>Title</Typography>
+        <Typography sx={{}}>*</Typography>
       </InputLabel>
       <FormControl fullWidth variant="outlined" sx={{ mt: '10px', mb: '10px' }} required>
         <InputLabel htmlFor="title">Name of the event</InputLabel>
