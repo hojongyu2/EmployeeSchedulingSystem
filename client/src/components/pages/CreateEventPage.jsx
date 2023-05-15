@@ -8,7 +8,7 @@ import { Activities } from "../formComponents/createFormComponents/Activities";
 import { createEvent } from "../../utilities/eventAxios";
 import { userContext } from "../context/UserContext";
 
-export const CreateEventPage = () => {
+const CreateEventPage = () => {
     const {setUser} = useContext(userContext)
     const [title, setTitle] = useState('');
     const [dateOfEvent, setDateOfEvent] = useState('');
@@ -87,3 +87,5 @@ export const CreateEventPage = () => {
         </Container>
     )
 }
+
+export default CreateEventPage;
