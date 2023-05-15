@@ -69,7 +69,7 @@ const SignUpPage = () => {
             borderRadius: "10px",
         }}
         >  
-            <Form onSubmit={onSubmitForm}>
+            <form onSubmit={onSubmitForm}>
                 <Box sx={{
                     borderRadius: "10px",
                 }}
@@ -92,7 +92,7 @@ const SignUpPage = () => {
                     <Button onClick={()=>{
                         navigate('/signin')
                     }} sx={{ paddingTop: "50px"}}>ALREADY HAVE AN ACCOUNT?</Button>
-            </Form>
+            </form>
         </Container>
     )
 }
