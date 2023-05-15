@@ -7,5 +7,4 @@ urlpatterns = [
      path('volunteer-shift/', VolunteerShiftsAPIview.as_view(), name='volunteer-shifts'),
      path('confirm-shift/<int:shift_id>/<str:confirmed_value>/', ConfirmShiftView.as_view(), name='confirm-shift'),
      # path('shift-confirmed/, insert view here, name=confirmed) --- connect to 
-     # path('shift-rejected/' insert view here, name=rejected)
 ]

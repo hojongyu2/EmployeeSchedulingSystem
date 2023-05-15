@@ -24,7 +24,8 @@ class Event(models.Model):
     start_time = models.TimeField()
     end_time = models.TimeField()
     activities = models.ManyToManyField(Activity, through='EventActivity')
-
+    reporting_instructions = models.TextField(default='')
+    
     def __str__(self):
         return self.name
 
