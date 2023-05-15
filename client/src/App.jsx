@@ -5,7 +5,7 @@ import { LoginPage } from './components/pages/LoginPage'
 import { SignUpPage } from './components/pages/SignUpPage'
 import { ListOfEventsAndHomePage } from './components/pages/ListOfEventsAndHomePage'
 import UserContextProvider from './components/context/UserContext'
-
+import ConfirmationPage from './components/pages/ConfirmationPage'
 import { CreateEventPage } from './components/pages/CreateEventPage'
 import { RequestPage } from './components/pages/RequestPage'
 
@@ -34,6 +34,10 @@ function App() {
         {
           path: '/request',
           element: <RequestPage />
+        },
+        {
+          path: '/confirmation/:response',
+          element: <ConfirmationPage />
         },
       ]
     },
