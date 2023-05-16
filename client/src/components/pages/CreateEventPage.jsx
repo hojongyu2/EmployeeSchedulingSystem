@@ -8,9 +8,12 @@ import { Activities } from "../formComponents/createFormComponents/Activities";
 import { createEvent } from "../../utilities/eventAxios";
 import { userContext } from "../context/UserContext";
 import { Instruction } from "../formComponents/createFormComponents/Instruction";
+import ErrorAlertBar from "../snackbars/ErrorAlertBar";
 
 const CreateEventPage = () => {
     const {setUser} = useContext(userContext)
+
+    //state variables for event componenets
     const [title, setTitle] = useState('');
     const [dateOfEvent, setDateOfEvent] = useState('');
     const [startTime, setStartTime] = useState('');
@@ -30,6 +33,9 @@ const CreateEventPage = () => {
     const [error, setError] = useState(false)
     const navigate = useNavigate()
 
+    // open/close state variable for snack alert bar
+    const [open, setOpen] = useState(false);
+
     const onSubmitCreateEvent = async (e) => {
         e.preventDefault()
             // filtering only true value for activities on form submit and stored in filterd object.
@@ -45,7 +51,7 @@ const CreateEventPage = () => {
             "activities": filtered,
             "reporting_instructions": instruction
         }  
-        // console.log(eventData)
+
         if (filtered.length === 0){
             setError('You must select one of the option')
         }else {
@@ -60,9 +66,12 @@ const CreateEventPage = () => {
                 }
             } catch (error) {
                 if (error.response && error.response.status === 401) {
-                    setUser(null)
-                    localStorage.clear();
-                    navigate('/');
+                    setOpen(true); // set open to true here
+                    setTimeout(() => {
+                        localStorage.clear();
+                        setUser(null)
+                        navigate('/')
+                    }, 2000);
                 } else {
                     // Handle other errors
                     console.error(error);
@@ -73,6 +82,7 @@ const CreateEventPage = () => {
 
     return (
         <Container sx={{display: "flex", flexDirection: "column", borderRadius: "10px"}}>
+            <ErrorAlertBar open={open} setOpen={setOpen} />
             <form onSubmit={onSubmitCreateEvent}>
                 <Box sx={{display:'flex', flexDirection:'column', gap:2}}>
                     <Title title={title} setTitle={setTitle} />
