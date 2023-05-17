@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import CustomThemeProvider from './CustomThemeProvider';
 import LoginPage from './components/pages/LoginPage';
@@ -11,7 +11,14 @@ import ResponsiveAppBar from './components/layout/Header';
 import ConfirmationPage from './components/pages/ConfirmationPage';
 
 function App() {
-  const [themeLight, setThemeLight] = useState(true);
+  const [themeLight, setThemeLight] = useState(() => {
+    const savedThemeLight = localStorage.getItem('themeLight');
+    return savedThemeLight !== null ? JSON.parse(savedThemeLight) : true;
+  });
+
+  useEffect(() => {
+    localStorage.setItem('themeLight', JSON.stringify(themeLight));
+  }, [themeLight]);
 
   const handleThemeChange = () => {
     setThemeLight((prevTheme) => !prevTheme);
