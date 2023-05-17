@@ -1,30 +1,65 @@
-import * as React from 'react';
+import React, { useContext, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { useContext, useState } from 'react';
-import { userContext } from '../context/userContext';
 import PropTypes from 'prop-types';
 
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-import Menu from '@mui/material/Menu';
-import MenuIcon from '@mui/icons-material/Menu';
-import Container from '@mui/material/Container';
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import Tooltip from '@mui/material/Tooltip';
-import MenuItem from '@mui/material/MenuItem';
+import {
+  AppBar,
+  Box,
+  Toolbar,
+  IconButton,
+  Typography,
+  Menu,
+  Container,
+  Avatar,
+  Button,
+  Tooltip,
+  MenuItem,
+  Icon,
+  ListItemIcon,
+  Badge,
+  styled,
+} from '@mui/material';
 import AdbIcon from '@mui/icons-material/Adb';
-import Icon from '@mui/material/Icon';
-import ListItemIcon from '@mui/material/ListItemIcon';
+import MenuIcon from '@mui/icons-material/Menu';
+
+import { userContext } from '../context/userContext';
+import './Header.styles.css';
+
 
 
 const pageUrls = {
   'Create Event': '/create-event',
   'Volunteer Signup': '/request'
 };
+
+const StyledBadge = styled(Badge)(({ theme }) => ({
+  '& .MuiBadge-badge': {
+    backgroundColor: '#ddd',
+    color: '#fff',
+    boxShadow: `0 0 0 2px ${theme.palette.background.paper}`,
+    '&::after': {
+      position: 'absolute',
+      top: 0,
+      left: 0,
+      width: '100%',
+      height: '100%',
+      borderRadius: '50%',
+      animation: 'ripple 1.2s infinite ease-in-out',
+      border: '1px solid currentColor',
+      content: '""',
+    },
+  },
+  '@keyframes ripple': {
+    '0%': {
+      transform: 'scale(.8)',
+      opacity: 1,
+    },
+    '100%': {
+      transform: 'scale(2.4)',
+      opacity: 0,
+    },
+  },
+}));
 
 function ResponsiveAppBar(props) {
   const { user, setUser } = useContext(userContext);
@@ -58,7 +93,7 @@ function ResponsiveAppBar(props) {
 
     }
   }
-  
+
   const profileDropdown = {
     'Login': () => {
       navigate('/login')
@@ -128,14 +163,31 @@ function ResponsiveAppBar(props) {
               <MenuItem onClick={handleThemeChange}>
                 {themeLight ? 'Dark Mode' : 'Light Mode'}
               </MenuItem>
-              {Object.keys(pageUrls).map((page, url) => (
-                <MenuItem key={page} component={Link} to={url}>
-                  <ListItemIcon>
-                    <Icon>people</Icon>
-                  </ListItemIcon>
-                  {page}
-                </MenuItem>
-              ))}
+              {Object.keys(pageUrls).map((page, i) => {
+              if (!user && page !== 'Create Event') {
+                return (
+                  <Button
+                    key={page}
+                    sx={{ my: 2, display: 'block' }}
+                  >
+                    <Link to={pageUrls[page]}>
+                      {page}
+                    </Link>
+                  </Button>
+                );
+              } else if (user) {
+                return (
+                  <Button
+                    key={page}
+                    sx={{ my: 2, display: 'block' }}
+                  >
+                    <Link to={pageUrls[page]}>
+                      {page}
+                    </Link>
+                  </Button>
+                );
+              }
+            })}
             </Menu>
           </Box>
           <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
@@ -191,7 +243,17 @@ function ResponsiveAppBar(props) {
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt={user ? user.first_name.toUpperCase() : "Guest"} />
+                {user ? (
+                  <StyledBadge
+                    overlap="circular"
+                    anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+                    variant="dot"
+                  >
+                    <Avatar alt={user.first_name.toUpperCase()} src="/static/images/avatar/1.jpg" />
+                  </StyledBadge>
+                ) : (
+                  <Avatar alt="" src="/static/images/avatar/1.jpg" />
+                )}
               </IconButton>
             </Tooltip>
             <Menu
@@ -210,22 +272,17 @@ function ResponsiveAppBar(props) {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              {Object.keys(profileDropdown).map((name, index) => {
-                if (user && name !== 'Login') {
-                  return (
-                    <MenuItem key={name} onClick={profileDropdown[name]}>
-                      <Typography textAlign="center">{name}</Typography>
-                    </MenuItem>
-                  );
-                }
-                else if (name === 'Login') {
-                  return (
-                    <MenuItem key={name} onClick={profileDropdown[name]}>
-                      <Typography textAlign="center">{name}</Typography>
-                    </MenuItem>
-                  );
-                }
-              })}
+              {user && profileDropdown['Logout'] ? (
+                <MenuItem key="Logout" onClick={profileDropdown['Logout']}>
+                  <Typography textAlign="center">Logout</Typography>
+                </MenuItem>
+              ) : null}
+              {!user && profileDropdown['Login'] ? (
+                <MenuItem key="Login" onClick={profileDropdown['Login']}>
+                  <Typography textAlign="center">Login</Typography>
+                </MenuItem>
+              ) : null}
+            
             </Menu>
           </Box>
         </Toolbar>
