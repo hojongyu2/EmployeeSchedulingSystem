@@ -94,7 +94,6 @@ const RequestPage = () => {
         const response = await sendOutVolunteerForm(data)
         if (response.id){
             // this need to handle properly
-            alert('Do not forget to handle this route')
             navigate('/')
         }else {
             alert('errrrrrrrrr')
