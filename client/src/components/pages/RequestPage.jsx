@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 import { useState } from "react"
+=======
+import { useState, useContext } from "react"
+>>>>>>> 3500369 (tuesday morning pull)
 import { useNavigate } from 'react-router-dom';
 import { Year }from "../formComponents/requestFormComponents/Year";
 import { Email } from "../formComponents/requestFormComponents/Email";
