@@ -7,25 +7,35 @@ import { Box, Button, Container } from "@mui/material"
 import { Activities } from "../formComponents/createFormComponents/Activities";
 import { createEvent } from "../../utilities/eventAxios";
 import { userContext } from "../context/UserContext";
+import { Instruction } from "../formComponents/createFormComponents/Instruction";
+import ErrorAlertBar from "../snackbars/ErrorAlertBar";
 
-export const CreateEventPage = () => {
+const CreateEventPage = () => {
     const {setUser} = useContext(userContext)
+
+    //state variables for event componenets
     const [title, setTitle] = useState('');
     const [dateOfEvent, setDateOfEvent] = useState('');
     const [startTime, setStartTime] = useState('');
     const [endTime, setEndTime] = useState('');
     const [activities, setActivities] = useState({
-        bloodDrives: { checked: false, startTime: null, endTime: null, volunteerNumberNeeded: 0},
-        clinic: { checked: false, startTime: null, endTime: null, volunteerNumberNeeded: 0 },
-        children: { checked: false, startTime: null, endTime: null, volunteerNumberNeeded: 0 },
-        groupVolunteer: { checked: false, startTime: null, endTime: null, volunteerNumberNeeded: 0 },
-        nonPatientRelated: { checked: false, startTime: null, endTime: null, volunteerNumberNeeded: 0 },
-        patientRelated: { checked: false, startTime: null, endTime: null, volunteerNumberNeeded: 0 },
-        weekendEvents: { checked: false, startTime: null, endTime: null, volunteerNumberNeeded: 0 },
+        Blood_Drive: { checked: false, startTime: null, endTime: null, volunteerNumberNeeded: 0, instruction: ''},
+        clinic: { checked: false, startTime: null, endTime: null, volunteerNumberNeeded: 0, instruction: ''},
+        children: { checked: false, startTime: null, endTime: null, volunteerNumberNeeded: 0, instruction: ''},
+        groupVolunteer: { checked: false, startTime: null, endTime: null, volunteerNumberNeeded: 0, instruction: ''},
+        nonPatientRelated: { checked: false, startTime: null, endTime: null, volunteerNumberNeeded: 0, instruction: ''},
+        patientRelated: { checked: false, startTime: null, endTime: null, volunteerNumberNeeded: 0, instruction: ''},
+        weekendEvents: { checked: false, startTime: null, endTime: null, volunteerNumberNeeded: 0, instruction: ''},
     });
+    const [instruction, setInstruction] = useState('')
+
     //error handler for activities 
     const [error, setError] = useState(false)
     const navigate = useNavigate()
+
+    // open/close state variable for snack alert bar
+    const [open, setOpen] = useState(false);
+
     const onSubmitCreateEvent = async (e) => {
         e.preventDefault()
             // filtering only true value for activities on form submit and stored in filterd object.
@@ -38,9 +48,10 @@ export const CreateEventPage = () => {
             "date_of_event" : dateOfEvent,
             "start_time": startTime,
             "end_time": endTime,
-            "activities": filtered
+            "activities": filtered,
+            "reporting_instructions": instruction
         }  
-        // console.log(eventData)
+
         if (filtered.length === 0){
             setError('You must select one of the option')
         }else {
@@ -55,9 +66,12 @@ export const CreateEventPage = () => {
                 }
             } catch (error) {
                 if (error.response && error.response.status === 401) {
-                    setUser(null)
-                    localStorage.clear();
-                    navigate('/');
+                    setOpen(true); // set open to true here
+                    setTimeout(() => {
+                        localStorage.clear();
+                        setUser(null)
+                        navigate('/')
+                    }, 2000);
                 } else {
                     // Handle other errors
                     console.error(error);
@@ -68,6 +82,7 @@ export const CreateEventPage = () => {
 
     return (
         <Container sx={{display: "flex", flexDirection: "column", borderRadius: "10px"}}>
+            <ErrorAlertBar open={open} setOpen={setOpen} />
             <form onSubmit={onSubmitCreateEvent}>
                 <Box sx={{display:'flex', flexDirection:'column', gap:2}}>
                     <Title title={title} setTitle={setTitle} />
@@ -79,6 +94,7 @@ export const CreateEventPage = () => {
                     endTime={endTime} 
                     setEndTime={setEndTime} />
                     <Activities activities={activities} setActivities={setActivities} error={error} setError={setError} />
+                    <Instruction instruction={instruction} setInstruction={setInstruction} />
                     <Box>
                         <Button type="submit" variant='contained'>Create Event</Button>
                     </Box>
@@ -87,3 +103,5 @@ export const CreateEventPage = () => {
         </Container>
     )
 }
+
+export default CreateEventPage;

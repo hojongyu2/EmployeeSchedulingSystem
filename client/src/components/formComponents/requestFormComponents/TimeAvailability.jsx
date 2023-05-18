@@ -29,7 +29,7 @@ export const TimeAvailability = ({selectedTimes, setSelectedTimes}) => {
 
   const handleNAChange = (day, isChecked) => {
     setDisabledDays({ ...disabledDays, [day]: isChecked });
-    setSelectedTimes({ ...selectedTimes, [day]: isChecked ? false : [0, 24] });
+    setSelectedTimes({ ...selectedTimes, [day]: isChecked ? false : [0, 23.59] });
     // console.log(selectedTimes)
   };
 

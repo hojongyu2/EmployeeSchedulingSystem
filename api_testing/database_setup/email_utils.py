@@ -11,7 +11,8 @@ def send_confirmation_email(volunteer_shift):
 
     I hope this email finds you well! Based on your submitted availability, we have an event that you might be interested in.
 
-    Event Details:
+    Event Details
+    
     Event Name: {volunteer_shift.event_activity.event.name}
     Date: {volunteer_shift.event_activity.event.date_of_event}
     Start Time: {volunteer_shift.start_time}
@@ -44,6 +45,41 @@ def send_confirmation_email(volunteer_shift):
     
     email = EmailMultiAlternatives(
         'Volunteer Opportunity - Mt. Sinai',
+        text_content,
+        settings.DEFAULT_FROM_EMAIL,
+        [volunteer_shift.volunteer.email]
+    )
+    email.attach_alternative(html_content, "text/html")
+
+    email.send(fail_silently=False)
+
+def send_reporting_instructions(volunteer_shift, reporting_instructions):
+    text_content = f"""
+    Dear {volunteer_shift.volunteer.name},
+
+    Thank you for confirming your attendance for {volunteer_shift.event_activity.event.name}.
+
+    Here are the event details:
+
+    {reporting_instructions}
+
+    Thank you!
+    """
+
+    html_content = f"""
+    <p>Dear {volunteer_shift.volunteer.name},</p>
+
+    <p>Thank you for confirming your attendance for <strong>{volunteer_shift.event_activity.event.name}</strong>.</p>
+
+    <p>Here are the event details:</p>
+    
+    <p>{reporting_instructions}</p>
+
+    <p>Thank you!</p>
+    """
+    
+    email = EmailMultiAlternatives(
+        'Event Volunteer Details- Mt. Sinai',
         text_content,
         settings.DEFAULT_FROM_EMAIL,
         [volunteer_shift.volunteer.email]

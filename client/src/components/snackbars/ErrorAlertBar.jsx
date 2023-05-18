@@ -26,18 +26,18 @@ export default function ErrorAlertBar({ open, setOpen }) {
   );
 
   return (
-    <Snackbar
-      open={open}
-      autoHideDuration={6000}
-      onClose={handleClose}
-      message="You need to sign in again"
-      action={action}
-      severity="error"
-      anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
-    >
+      <Snackbar
+        open={open}
+        autoHideDuration={6000}
+        onClose={handleClose}
+        message="You need to sign in again"
+        action={action}
+        severity="error"
+        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+      >
       <Alert onClose={handleClose} severity="error" sx={{ width: '100%' }}>
-        Your session has expired. Please sign in again.
-      </Alert>
+      Your session has expired. Please sign in again.
+    </Alert>
     </Snackbar>
   );
 }

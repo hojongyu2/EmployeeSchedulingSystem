@@ -4,6 +4,9 @@ from rest_framework.permissions import IsAuthenticated
 from .serializers import VolunteerSerializer, EventSerializer, EventActivitySerializer, VolunteerShiftSerializer, GetEventActivitySerializer
 from rest_framework import status
 from .models import Activity, Event, VolunteerShift, EventActivity, Volunteer
+from django.shortcuts import redirect
+from django.conf import settings
+from .email_utils import send_reporting_instructions
 # Create your views here.
 
 class VolunteerSignUpView(APIView):
@@ -39,6 +42,7 @@ class EventAPIView(APIView):
         for activity_data in activities_data:
             activity_name = activity_data.get('activity')
             activity, _ = Activity.objects.get_or_create(name=activity_name)
+            # reporting instructions input here
             event_activity_data = {**activity_data, 'event': event.id, 'activity': activity.id}
             event_activity_serializer = EventActivitySerializer(data=event_activity_data)
             if event_activity_serializer.is_valid(raise_exception=True):
@@ -84,27 +88,30 @@ class VolunteerShiftsAPIview(APIView):
         for data in serializer.data:
             volunteer_id = data['volunteer']
             data['volunteer'] = Volunteer.objects.get(id=volunteer_id).name
-        
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 class ConfirmShiftView(APIView):
     def get(self, request, shift_id, confirmed_value, format=None):
         try:
             shift = VolunteerShift.objects.get(pk=shift_id)
-
+            # Get event activity, get event, get reporting instructions
             if confirmed_value.lower() == 'yes':
-                shift.confirmed = True
+                shift.confirmed = 'Yes'
                 shift.save()
-                # Turn into redirect response, thank you for confirming attendance!
+                
+                # Get the reporting instructions from the related event
+                reporting_instructions = shift.event_activity.event.reporting_instructions
+                send_reporting_instructions(shift, reporting_instructions)
+                
+                return redirect(f'{settings.FRONTEND_URL}/confirmation/yes')
+            
             elif confirmed_value.lower() == 'no':
-                shift.confirmed = False
+                shift.confirmed = 'No'
                 shift.save()
-                # Turn into redirect response, thank you for your response!
+                return redirect(f'{settings.FRONTEND_URL}/confirmation/no')
+            
             else:
                 return Response({'error': 'Invalid confirmed_value'}, status=status.HTTP_400_BAD_REQUEST)
-                
-            
-            return Response({'detail': 'Shift confirmation updated successfully.'}, status=status.HTTP_200_OK)
 
         except VolunteerShift.DoesNotExist:
             return Response({'error': 'Shift not found'}, status=status.HTTP_404_NOT_FOUND)

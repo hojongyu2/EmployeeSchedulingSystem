@@ -24,7 +24,7 @@ export const VolunteerWishList = ({activities, setActivities}) => {
                 </FormLabel>
                 <FormGroup>
                     <FormControlLabel
-                        control={<Checkbox checked={activities.bloodDrives} onChange={handleChange} name="bloodDrives" />}
+                        control={<Checkbox checked={activities.Blood_Drive} onChange={handleChange} name="Blood_Drive" />}
                         label="Blood Drives"
                     />
                     <FormControlLabel

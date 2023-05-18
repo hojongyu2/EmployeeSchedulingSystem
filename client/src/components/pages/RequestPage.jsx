@@ -1,5 +1,5 @@
 import { useState, useContext } from "react"
-import { Form, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { Year }from "../formComponents/requestFormComponents/Year";
 import { Email } from "../formComponents/requestFormComponents/Email";
 import { VolunteerWishList } from "../formComponents/requestFormComponents/VolunteerWishList";
@@ -7,13 +7,12 @@ import { ChicagoOrSinai } from "../formComponents/requestFormComponents/ChicagoO
 import { TimeAvailability } from "../formComponents/requestFormComponents/TimeAvailability";
 
 //MUI
-import { Box, Button, Container, Switch, Typography, useTheme } from "@mui/material"
+import { Box, Button, Container, useTheme } from "@mui/material"
 import { sendOutVolunteerForm } from "../../utilities/eventAxios";
 import { Name } from "../formComponents/requestFormComponents/Name";
 
 
-export const RequestPage = () => {
-    const theme = useTheme();
+const RequestPage = () => {
     const navigate = useNavigate();
 
     const [checked, setChecked] = useState(false);
@@ -26,7 +25,7 @@ export const RequestPage = () => {
     const [duration, setDuration] = useState('');
 
     const [activities, setActivities] = useState({
-        bloodDrives: false,
+        Blood_Drive: false,
         clinic: false,
         children: false,
         groupVolunteer: false,
@@ -72,7 +71,7 @@ export const RequestPage = () => {
             let time = selectedTimes[day];
             let timeObject = {};
             if (time === true) {
-                timeObject = { "start_time": "00:00", "end_time": "24:00" };
+                timeObject = { "start_time": "00:00", "end_time": "23:59" };
             } else if (Array.isArray(time)) {
                 timeObject = { 
                     "start_time": time[0].toString().padStart(2, '0') + ":00", 
@@ -91,11 +90,10 @@ export const RequestPage = () => {
             'desired_activities' : filteredActivities,
             'availability_set' : filteredTimes,
         }
-        // console.log(data)
+        console.log(data)
         const response = await sendOutVolunteerForm(data)
         if (response.id){
             // this need to handle properly
-            alert('Do not forget to handle this route')
             navigate('/')
         }else {
             alert('errrrrrrrrr')
@@ -111,7 +109,7 @@ export const RequestPage = () => {
             borderRadius: "10px",
         }}
         >  
-            <Form onSubmit={onSubmitForm}>
+            <form onSubmit={onSubmitForm}>
                 <Name name={name} setName={setName} />
                 <Email email={email} setEmail={setEmail} />
                 <Year year={year} setYear={setYear} />
@@ -121,7 +119,9 @@ export const RequestPage = () => {
                 <Box>
                     <Button type="submit" variant='contained'>Submit</Button>
                 </Box>
-            </Form>
+            </form>
         </Container>
     )
 }
+
+export default RequestPage;

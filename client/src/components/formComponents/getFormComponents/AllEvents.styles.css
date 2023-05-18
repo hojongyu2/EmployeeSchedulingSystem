@@ -1,0 +1,23 @@
+/* styles.css */
+.tableContainer {
+    margin: 1rem;
+}
+  
+.tableRow {
+    cursor: pointer;
+}
+
+.activityRow {
+    padding-bottom: 0;
+    padding-top: 0;
+}
+
+.volunteerRow {
+    padding-bottom: 0;
+    padding-top: 0;
+}
+
+.collapseBox {
+    margin: 1rem;
+}
+  

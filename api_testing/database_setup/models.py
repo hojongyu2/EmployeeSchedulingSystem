@@ -24,7 +24,8 @@ class Event(models.Model):
     start_time = models.TimeField()
     end_time = models.TimeField()
     activities = models.ManyToManyField(Activity, through='EventActivity')
-
+    reporting_instructions = models.TextField(default='')
+    
     def __str__(self):
         return self.name
 
@@ -101,7 +102,7 @@ class VolunteerShift(models.Model):
     event_activity = models.ForeignKey(EventActivity, on_delete=models.CASCADE)
     start_time = models.TimeField()
     end_time = models.TimeField()
-    confirmed = models.BooleanField(default=False)
+    confirmed = models.CharField(default='No')
     class Meta:
         unique_together = ('volunteer', 'event_activity', 'start_time', 'end_time', 'confirmed')
 

@@ -7,7 +7,7 @@ import { userContext } from "../context/UserContext";
 import { Box, Button, Container, Link, TextField, Typography, useTheme } from "@mui/material"
 
 
-export const SignUpPage = () => {
+const SignUpPage = () => {
     const theme = useTheme();
     const navigate = useNavigate();
     const [errorMessage, setErrorMessage]= useState('');
@@ -69,7 +69,7 @@ export const SignUpPage = () => {
             borderRadius: "10px",
         }}
         >  
-            <Form onSubmit={onSubmitForm}>
+            <form onSubmit={onSubmitForm}>
                 <Box sx={{
                     borderRadius: "10px",
                 }}
@@ -92,7 +92,9 @@ export const SignUpPage = () => {
                     <Button onClick={()=>{
                         navigate('/signin')
                     }} sx={{ paddingTop: "50px"}}>ALREADY HAVE AN ACCOUNT?</Button>
-            </Form>
+            </form>
         </Container>
     )
 }
+
+export default SignUpPage;

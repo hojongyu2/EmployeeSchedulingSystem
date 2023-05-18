@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 import ErrorAlertBar from "../snackbars/ErrorAlertBar"
 
 
-export const ListOfEventsAndHomePage = () => {
+const ListOfEventsAndHomePage = () => {
 
     // Use the useContext hook to access and manage user-related state variables from the userContext.
     const { user, setUser } = useContext(userContext)
@@ -73,3 +73,5 @@ export const ListOfEventsAndHomePage = () => {
         </Container>
     )
 }
+
+export default ListOfEventsAndHomePage;
