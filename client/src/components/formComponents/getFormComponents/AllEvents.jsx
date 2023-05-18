@@ -76,7 +76,7 @@ export default function AllEvents({allEventData, setAllEventData, allActivityDat
             }
           }
     }
-    console.log(allVolunteerData)
+
     return (
 <TableContainer className="tableContainer">
   <Table>
