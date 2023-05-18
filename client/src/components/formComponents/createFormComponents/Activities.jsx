@@ -58,16 +58,16 @@ export const Activities = ({ activities, setActivities, error, setError }) => {
                 <FormGroup>
                     <Box>
                         <FormControlLabel
-                            control={<Checkbox checked={activities.bloodDrives.checked} onChange={handleOnChange} name="bloodDrives" />}
+                            control={<Checkbox checked={activities.Blood_Drive.checked} onChange={handleOnChange} name="Blood_Drive" />}
                             label="Blood Drives"
                         />
                         <TimePickerForActivity
-                            initialStartTime={activities.bloodDrives.startTime || '00:00'}
-                            initialEndTime={activities.bloodDrives.endTime || '00:00'}
-                            onTimeChange={(startTime, endTime) => handleTimeOnChange("bloodDrives", startTime, endTime)}
+                            initialStartTime={activities.Blood_Drive.startTime || '00:00'}
+                            initialEndTime={activities.Blood_Drive.endTime || '00:00'}
+                            onTimeChange={(startTime, endTime) => handleTimeOnChange("Blood_Drive", startTime, endTime)}
                         />
                         <VolunteerNumberForActivity 
-                            onVolunteerNumberChange ={(newVolunteerNumber) => handleVolunteerNumberOnChange("bloodDrives", newVolunteerNumber)} 
+                            onVolunteerNumberChange ={(newVolunteerNumber) => handleVolunteerNumberOnChange("Blood_Drive", newVolunteerNumber)} 
                         />
                     </Box>
                     

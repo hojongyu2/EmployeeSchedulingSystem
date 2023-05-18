@@ -19,7 +19,7 @@ const CreateEventPage = () => {
     const [startTime, setStartTime] = useState('');
     const [endTime, setEndTime] = useState('');
     const [activities, setActivities] = useState({
-        bloodDrives: { checked: false, startTime: null, endTime: null, volunteerNumberNeeded: 0, instruction: ''},
+        Blood_Drive: { checked: false, startTime: null, endTime: null, volunteerNumberNeeded: 0, instruction: ''},
         clinic: { checked: false, startTime: null, endTime: null, volunteerNumberNeeded: 0, instruction: ''},
         children: { checked: false, startTime: null, endTime: null, volunteerNumberNeeded: 0, instruction: ''},
         groupVolunteer: { checked: false, startTime: null, endTime: null, volunteerNumberNeeded: 0, instruction: ''},
