@@ -25,7 +25,7 @@ const RequestPage = () => {
     const [duration, setDuration] = useState('');
 
     const [activities, setActivities] = useState({
-        bloodDrives: false,
+        Blood_Drive: false,
         clinic: false,
         children: false,
         groupVolunteer: false,
@@ -71,7 +71,7 @@ const RequestPage = () => {
             let time = selectedTimes[day];
             let timeObject = {};
             if (time === true) {
-                timeObject = { "start_time": "00:00", "end_time": "24:00" };
+                timeObject = { "start_time": "00:00", "end_time": "23:59" };
             } else if (Array.isArray(time)) {
                 timeObject = { 
                     "start_time": time[0].toString().padStart(2, '0') + ":00", 
@@ -90,7 +90,7 @@ const RequestPage = () => {
             'desired_activities' : filteredActivities,
             'availability_set' : filteredTimes,
         }
-        // console.log(data)
+        console.log(data)
         const response = await sendOutVolunteerForm(data)
         if (response.id){
             // this need to handle properly
